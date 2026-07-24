@@ -1,9 +1,12 @@
 backend:
-  name: github
+  name: git-gateway
   repo: meilanz83-rgb/Chamblinds-site1
   branch: main
-  base_url: https://www.decapbridge.com
-  auth_endpoint: api/auth
+  auth_type: pkce
+  base_url: https://auth.decapbridge.com
+  auth_endpoint: /sites/05e04ccb-a6fc-4e2b-bf58-6f735e3bde8e/pkce
+  auth_token_endpoint: /sites/05e04ccb-a6fc-4e2b-bf58-6f735e3bde8e/token
+  gateway_url: https://gateway.decapbridge.com
 
 media_folder: "uploads/롤스크린"
 public_folder: "/uploads/롤스크린"
