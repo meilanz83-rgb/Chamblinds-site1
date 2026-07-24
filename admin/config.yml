@@ -1,0 +1,99 @@
+backend:
+  name: github
+  repo: YOUR_GITHUB_USERNAME/YOUR_REPO_NAME
+  branch: main
+  base_url: https://www.decapbridge.com
+  auth_endpoint: api/auth
+
+media_folder: "uploads/롤스크린"
+public_folder: "/uploads/롤스크린"
+
+collections:
+  - name: "roll_manifest"
+    label: "롤스크린 카탈로그 사진"
+    files:
+      - file: "uploads/roll-manifest.json"
+        label: "롤스크린 사진 목록"
+        name: "roll_manifest"
+        fields:
+          - { label: "사진 목록 (순서대로)", name: "photos", widget: "list", field: { label: "사진", name: "src", widget: "image" } }
+  - name: "combi_manifest"
+    label: "콤비블라인드 카탈로그 사진"
+    files:
+      - file: "uploads/combi-manifest.json"
+        label: "콤비블라인드 사진 목록"
+        name: "combi_manifest"
+        fields:
+          - { label: "사진 목록 (순서대로)", name: "photos", widget: "list", field: { label: "사진", name: "src", widget: "image" } }
+  - name: "wood_manifest"
+    label: "우드블라인드 카탈로그 사진"
+    files:
+      - file: "uploads/wood-manifest.json"
+        label: "우드블라인드 사진 목록"
+        name: "wood_manifest"
+        fields:
+          - { label: "사진 목록 (순서대로)", name: "photos", widget: "list", field: { label: "사진", name: "src", widget: "image" } }
+  - name: "honeycomb_manifest"
+    label: "허니콤쉐이드 카탈로그 사진"
+    files:
+      - file: "uploads/honeycomb-manifest.json"
+        label: "허니콤쉐이드 사진 목록"
+        name: "honeycomb_manifest"
+        fields:
+          - { label: "사진 목록 (순서대로)", name: "photos", widget: "list", field: { label: "사진", name: "src", widget: "image" } }
+  - name: "vertical_manifest"
+    label: "버티컬 카탈로그 사진"
+    files:
+      - file: "uploads/vertical-manifest.json"
+        label: "버티컬 사진 목록"
+        name: "vertical_manifest"
+        fields:
+          - { label: "사진 목록 (순서대로)", name: "photos", widget: "list", field: { label: "사진", name: "src", widget: "image" } }
+  - name: "curtain_manifest"
+    label: "커튼 카탈로그 사진"
+    files:
+      - file: "uploads/curtain-manifest.json"
+        label: "커튼 사진 목록"
+        name: "curtain_manifest"
+        fields:
+          - { label: "사진 목록 (순서대로)", name: "photos", widget: "list", field: { label: "사진", name: "src", widget: "image" } }
+  - name: "gallery_living_manifest"
+    label: "시공 갤러리 - 거실"
+    files:
+      - file: "uploads/gallery-living-manifest.json"
+        label: "거실 사진 목록"
+        name: "gallery_living_manifest"
+        fields:
+          - { label: "사진 목록 (순서대로)", name: "photos", widget: "list", field: { label: "사진", name: "src", widget: "image" } }
+  - name: "gallery_bedroom_manifest"
+    label: "시공 갤러리 - 침실"
+    files:
+      - file: "uploads/gallery-bedroom-manifest.json"
+        label: "침실 사진 목록"
+        name: "gallery_bedroom_manifest"
+        fields:
+          - { label: "사진 목록 (순서대로)", name: "photos", widget: "list", field: { label: "사진", name: "src", widget: "image" } }
+  - name: "gallery_office_manifest"
+    label: "시공 갤러리 - 사무실"
+    files:
+      - file: "uploads/gallery-office-manifest.json"
+        label: "사무실 사진 목록"
+        name: "gallery_office_manifest"
+        fields:
+          - { label: "사진 목록 (순서대로)", name: "photos", widget: "list", field: { label: "사진", name: "src", widget: "image" } }
+  - name: "gallery_veranda_manifest"
+    label: "시공 갤러리 - 베란다"
+    files:
+      - file: "uploads/gallery-veranda-manifest.json"
+        label: "베란다 사진 목록"
+        name: "gallery_veranda_manifest"
+        fields:
+          - { label: "사진 목록 (순서대로)", name: "photos", widget: "list", field: { label: "사진", name: "src", widget: "image" } }
+  - name: "gallery_etc_manifest"
+    label: "시공 갤러리 - 기타"
+    files:
+      - file: "uploads/gallery-etc-manifest.json"
+        label: "기타 사진 목록"
+        name: "gallery_etc_manifest"
+        fields:
+          - { label: "사진 목록 (순서대로)", name: "photos", widget: "list", field: { label: "사진", name: "src", widget: "image" } }

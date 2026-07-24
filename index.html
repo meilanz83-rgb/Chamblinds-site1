@@ -1,0 +1,1165 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<form name="inquiry" data-netlify="true" netlify-honeypot="bot-field" hidden>
+  <input type="text" name="product" />
+  <input type="text" name="places" />
+  <input type="text" name="size" />
+  <input type="text" name="install" />
+  <textarea name="comment"></textarea>
+  <input type="text" name="contact" />
+  <input type="text" name="bot-field" />
+</form>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.css">
+<style>
+  *{box-sizing:border-box;}
+  html,body{margin:0;}
+  .noscroll::-webkit-scrollbar{width:0;height:0;display:none;}
+  .noscroll{scrollbar-width:none;-ms-overflow-style:none;}
+  .fld{width:100%;font-family:'Pretendard','Helvetica Neue',Arial,sans-serif;font-size:14px;color:#002452;background:#fff;border:none;box-shadow:inset 0 0 0 1px #e2e2e2;border-radius:3px;padding:13px 14px;outline:none;transition:box-shadow .15s;}
+  .fld:focus{box-shadow:inset 0 0 0 1.5px #002452;}
+  .fld::placeholder{color:#acacac;}
+  a.navlink{color:#002452;text-decoration:none;}
+  a.navlink:hover{color:#ff4600;}
+  image-slot{width:100% !important;height:100% !important;display:block !important;}
+</style>
+<script src="image-slot.js"></script>
+</helmet>
+<div class="noscroll" style="width:100%;min-height:100vh;overflow-y:auto;overflow-x:hidden;background:#fff;font-family:'Pretendard','Helvetica Neue',Arial,sans-serif;position:relative;">
+
+  <!-- top bar -->
+  <div style="position:sticky;top:0;z-index:20;display:flex;align-items:center;justify-content:space-between;{{ navPadStyle }}background:rgba(255,255,255,.9);backdrop-filter:blur(12px);border-bottom:1px solid #eeeeee;">
+    <div style="{{ pageInnerWidthStyle }}display:flex;align-items:center;justify-content:space-between;">
+      <div style="display:flex;align-items:center;gap:8px;flex:0 0 auto;">
+        <span style="font-weight:700;font-size:17px;color:#002452;letter-spacing:-.02em;">참좋은창 블라인드</span>
+        <span style="font-size:9px;letter-spacing:.3em;font-weight:700;color:#acacac;">BLINDS</span>
+      </div>
+      <sc-if value="{{ isDesktop }}" hint-placeholder-val="{{ false }}">
+        <div style="display:flex;align-items:center;justify-content:flex-end;gap:34px;flex:1;margin-left:40px;">
+          <a href="#products" class="navlink" style="font-size:13.5px;font-weight:600;">제품 카탈로그</a>
+          <a href="#gallery" class="navlink" style="font-size:13.5px;font-weight:600;">시공 갤러리</a>
+          <a href="#showroom" class="navlink" style="font-size:13.5px;font-weight:600;">오시는 길</a>
+          <span onClick="{{ openInquiry }}" style="background:#002452;color:#fff;font-size:13px;font-weight:700;padding:11px 20px;border-radius:3px;cursor:pointer;">문의글 보내기</span>
+        </div>
+      </sc-if>
+      <sc-if value="{{ isMobile }}" hint-placeholder-val="{{ true }}">
+        <span style="font-size:11px;letter-spacing:.18em;font-weight:700;color:#002452;">MENU</span>
+      </sc-if>
+    </div>
+  </div>
+
+  <!-- hero (mobile: stacked) -->
+  <sc-if value="{{ isMobile }}" hint-placeholder-val="{{ true }}">
+    <div style="padding:44px 22px 30px;">
+      <div style="display:flex;align-items:center;gap:9px;margin-bottom:22px;">
+        <span style="width:7px;height:7px;background:#ff4600;border-radius:50%;"></span>
+        <span style="font-size:10.5px;letter-spacing:.24em;font-weight:700;color:#8a9099;">WINDOW BLIND CATALOG — 2026</span>
+      </div>
+      <h2 style="margin:0;font-weight:700;font-size:39px;line-height:1.14;letter-spacing:-.035em;color:#002452;">빛을 다루는<br>가장 좋은 방법</h2>
+      <p style="margin:20px 0 26px;font-weight:300;font-size:16px;line-height:1.6;color:#52575e;max-width:290px;">롤스크린부터 우드 블라인드까지, <br>공간에 꼭 맞는 맞춤 제작 블라인드.</p>
+      <div style="display:flex;gap:9px;">
+        <span onClick="{{ openCatalogBook }}" style="background:#002452;color:#fff;font-size:13.5px;font-weight:600;padding:14px 24px;border-radius:3px;cursor:pointer;">카탈로그 보기</span>
+        <span onClick="{{ openInquiry }}" style="background:#fff;box-shadow:inset 0 0 0 1.5px #002452;color:#002452;font-size:13.5px;font-weight:600;padding:14px 22px;border-radius:3px;cursor:pointer;">문의글 보내기</span>
+      </div>
+    </div>
+    <div style="padding:0 22px;">
+      <div style="height:250px;border-radius:6px;background:#e2e2e2;position:relative;overflow:hidden;">
+        <img src="uploads/hero-main.jpg" alt="회의실 콤비 블라인드 시공" style="width:100%;height:100%;object-fit:cover;display:block;">
+      </div>
+    </div>
+  </sc-if>
+
+  <!-- hero (desktop: split) -->
+  <sc-if value="{{ isDesktop }}" hint-placeholder-val="{{ false }}">
+    <div style="{{ pageInnerWidthStyle }}display:flex;align-items:center;gap:64px;padding:88px 40px 96px;">
+      <div style="flex:0 0 auto;max-width:440px;">
+        <div style="display:flex;align-items:center;gap:9px;margin-bottom:24px;">
+          <span style="width:7px;height:7px;background:#ff4600;border-radius:50%;"></span>
+          <span style="font-size:11px;letter-spacing:.24em;font-weight:700;color:#8a9099;">WINDOW BLIND CATALOG — 2026</span>
+        </div>
+        <h2 style="margin:0;font-weight:700;font-size:56px;line-height:1.1;letter-spacing:-.04em;color:#002452;">빛을 다루는<br>가장 좋은 방법</h2>
+        <p style="margin:26px 0 34px;font-weight:300;font-size:18px;line-height:1.65;color:#52575e;">롤스크린부터 우드 블라인드까지,<br>공간에 꼭 맞는 맞춤 제작 블라인드.</p>
+        <div style="display:flex;gap:12px;">
+          <span onClick="{{ openCatalogBook }}" style="background:#002452;color:#fff;font-size:14.5px;font-weight:600;padding:16px 28px;border-radius:3px;cursor:pointer;">카탈로그 보기</span>
+          <span onClick="{{ openInquiry }}" style="background:#fff;box-shadow:inset 0 0 0 1.5px #002452;color:#002452;font-size:14.5px;font-weight:600;padding:16px 26px;border-radius:3px;cursor:pointer;">문의글 보내기</span>
+        </div>
+      </div>
+      <div style="flex:1;height:480px;border-radius:8px;overflow:hidden;background:#e2e2e2;">
+        <img src="uploads/hero-main.jpg" alt="회의실 콤비 블라인드 시공" style="width:100%;height:100%;object-fit:cover;display:block;">
+      </div>
+    </div>
+  </sc-if>
+
+  <!-- products index -->
+  <div id="products" style="{{ pageInnerWidthStyle }}padding-bottom:48px;">
+    <div onClick="{{ openCatalogBook }}" style="padding:36px 0 12px;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid #eeeeee;cursor:pointer;">
+      <span style="font-size: 19px; letter-spacing: -0.02em; font-weight: 700; color: #002452">제품별 카다로그</span>
+      <span style="font-size:11px;color:#acacac;letter-spacing:.1em;">05 ITEMS</span>
+    </div>
+    <div style="{{ productsGridStyle }}">
+      <sc-for list="{{ products }}" as="item" hint-placeholder-count="5">
+        <div onClick="{{ item.openCatalog }}" style="display:flex;align-items:center;gap:16px;padding:19px 0;border-bottom:1px solid #eeeeee;cursor:pointer;">
+          <span style="font-size:11px;font-weight:700;color:#c9ccd1;width:22px;flex:0 0 auto;letter-spacing:.05em;">{{ item.no }}</span>
+          <div style="{{ item.rowThumb }}"></div>
+          <div style="flex:1;min-width:0;">
+            <div style="display:flex;align-items:center;gap:8px;">
+              <h3 style="margin:0;font-weight:700;font-size:16px;color:#002452;letter-spacing:-.02em;">{{ item.name }}</h3>
+              <sc-if value="{{ item.tag }}" hint-placeholder-val="{{ true }}">
+                <span style="font-size:8.5px;letter-spacing:.14em;font-weight:700;color:#ff4600;box-shadow:inset 0 0 0 1px #ffd0c0;padding:2px 6px;border-radius:2px;">{{ item.tag }}</span>
+              </sc-if>
+            </div>
+            <p style="margin:5px 0 0;font-weight:300;font-size:12.5px;line-height:1.5;color:#53595f;">{{ item.desc }}</p>
+          </div>
+          <span style="font-size:15px;color:#c9ccd1;flex:0 0 auto;">→</span>
+        </div>
+      </sc-for>
+    </div>
+  </div>
+
+  <!-- gallery -->
+  <div id="gallery" style="{{ pageInnerWidthStyle }}padding-top:48px;padding-bottom:48px;">
+    <div style="display:flex;align-items:baseline;justify-content:space-between;margin-bottom:18px;">
+      <div>
+        
+        <h3 style="margin:0;font-weight:700;font-size:19px;color:#002452;letter-spacing:-.02em;">시공 갤러리</h3>
+      </div>
+      <span onClick="{{ openGallery }}" style="font-size:11px;color:#8a9099;align-self:flex-end;letter-spacing:.08em;cursor:pointer;">VIEW ALL →</span>
+    </div>
+    <div style="{{ galleryGridStyle }}">
+      <div onClick="{{ openGallery }}" style="aspect-ratio:4/3;border-radius:3px;overflow:hidden;position:relative;cursor:pointer;"><img src="uploads/gallery-living.jpg" alt="거실 시공" style="width:100%;height:100%;object-fit:cover;display:block;"><span style="position:absolute;bottom:8px;left:9px;font-size:10.5px;font-weight:600;color:#fff;text-shadow:0 1px 4px rgba(0,0,0,.6);">거실</span></div>
+      <div onClick="{{ openGallery }}" style="aspect-ratio:4/3;border-radius:3px;overflow:hidden;position:relative;cursor:pointer;"><img src="uploads/combi.jpg" alt="회의실 시공" style="width:100%;height:100%;object-fit:cover;display:block;"><span style="position:absolute;bottom:8px;left:9px;font-size:10.5px;font-weight:600;color:#fff;text-shadow:0 1px 4px rgba(0,0,0,.6);">회의실</span></div>
+      <div onClick="{{ openGallery }}" style="aspect-ratio:4/3;border-radius:3px;overflow:hidden;position:relative;cursor:pointer;"><img src="uploads/gallery-office.jpg" alt="사무실 시공" style="width:100%;height:100%;object-fit:cover;display:block;"><span style="position:absolute;bottom:8px;left:9px;font-size:10.5px;font-weight:600;color:#fff;text-shadow:0 1px 4px rgba(0,0,0,.6);">사무실</span></div>
+      <div onClick="{{ openGallery }}" style="aspect-ratio:4/3;border-radius:3px;overflow:hidden;position:relative;cursor:pointer;"><img src="uploads/gallery-lobby.jpg" alt="로비 시공" style="width:100%;height:100%;object-fit:cover;display:block;"><span style="position:absolute;bottom:8px;left:9px;font-size:10.5px;font-weight:600;color:#fff;text-shadow:0 1px 4px rgba(0,0,0,.6);">로비</span></div>
+    </div>
+  </div>
+
+  <!-- showroom + map -->
+  <div id="showroom" style="{{ pageInnerWidthStyle }}padding-top:48px;padding-bottom:48px;">
+    
+    <div style="font-size: 11px; letter-spacing: .22em; font-weight: 700; color: #E0E2E4; margin-bottom: 14px">SHOWROOM</div><h3 style="margin: 0 0 12px; font-weight: 700; font-size: 24px; color: #002452; letter-spacing: -.02em">오시는 길</h3>
+    <div style="{{ showroomLayoutStyle }}">
+      <div style="{{ showroomInfoWidthStyle }}display:flex;flex-direction:column;gap:9px;">
+        <div style="display:flex;gap:12px;">
+          <span style="font-size:11px;font-weight:700;color:#acacac;letter-spacing:.08em;width:44px;flex:0 0 auto;">주소</span>
+          <span style="font-size:13px;color:#002452;line-height:1.5;font-weight:500;">경기도 남양주시 수동면 비룡로 599<br><span style="font-weight:700;">참좋은창</span></span>
+        </div>
+        <div style="height:1px;background:#eeeeee;"></div>
+        <div style="display:flex;gap:12px;">
+          <span style="font-size:11px;font-weight:700;color:#acacac;letter-spacing:.08em;width:44px;flex:0 0 auto;">평일</span>
+          <span style="font-size:13px;color:#53595f;">09:00 – 17:00</span>
+        </div>
+        <div style="height:1px;background:#eeeeee;"></div>
+        <div style="display:flex;gap:12px;">
+          <span style="font-size:11px;font-weight:700;color:#acacac;letter-spacing:.08em;width:44px;flex:0 0 auto;">주말</span>
+          <span style="font-size:13px;color:#53595f;">휴무 (토 · 일)</span>
+        </div>
+        <div style="display:flex;gap:8px;margin-top:9px;">
+          <a href="tmap://search?name=%EA%B2%BD%EA%B8%B0%EB%8F%84%20%EB%82%A8%EC%96%91%EC%A3%BC%EC%8B%9C%20%EC%88%98%EB%8F%99%EB%A9%B4%20%EB%B9%84%EB%A3%A1%EB%A1%9C%20599%20%EC%B0%B8%EC%A2%8B%EC%9D%80%EC%B0%BD" style="flex:1;display:block;text-align:center;font-size:12.5px;font-weight:600;padding:11px;border-radius:3px;background:#002452;color:#fff;text-decoration:none;">T맵으로 길찾기</a>
+          <a href="https://map.naver.com/p/search/%EA%B2%BD%EA%B8%B0%EB%8F%84%20%EB%82%A8%EC%96%91%EC%A3%BC%EC%8B%9C%20%EC%88%98%EB%8F%99%EB%A9%B4%20%EB%B9%84%EB%A3%A1%EB%A1%9C%20599%20%EC%B0%B8%EC%A2%8B%EC%9D%80%EC%B0%BD" target="_blank" rel="noopener" style="flex:1;display:block;text-align:center;font-size:12.5px;font-weight:600;padding:11px;border-radius:3px;background:#fff;color:#002452;box-shadow:inset 0 0 0 1px #002452;text-decoration:none;">네이버로 길찾기</a>
+        </div>
+      </div>
+      <div style="{{ showroomMapWidthStyle }}">
+        <div style="border-radius:4px;overflow:hidden;box-shadow:inset 0 0 0 1px #e2e2e2;">
+          <iframe title="지도" width="100%" height="{{ mapHeight }}" style="border:0;display:block;" loading="lazy" referrerpolicy="no-referrer-when-downgrade" src="https://maps.google.com/maps?q=%EA%B2%BD%EA%B8%B0%EB%8F%84%20%EB%82%A8%EC%96%91%EC%A3%BC%EC%8B%9C%20%EC%88%98%EB%8F%99%EB%A9%B4%20%EB%B9%84%EB%A3%A1%EB%A1%9C%20599&amp;z=15&amp;hl=ko&amp;output=embed"></iframe>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- CTA -->
+  <div style="{{ pageInnerWidthStyle }}padding-top:48px;padding-bottom:56px;">
+    <div style="margin:0;padding:34px 26px;background:#002452;color:#fff;border-radius:4px;">
+      <span style="width:7px;height:7px;background:#ff4600;border-radius:50%;"></span><span style="font-size:10px;letter-spacing:.24em;font-weight:700;color:#8fa2be;">FREE ESTIMATE</span><h3 style="margin:0 0 10px;font-weight:700;font-size:22px;line-height:1.3;letter-spacing:-.02em;">무료 견적 · 상담 문의</h3>
+      <p style="margin:0 0 20px;font-weight:300;font-size:13.5px;line-height:1.6;color:#c3ccd9;max-width:460px;">제품과 설치 장소, 창 크기만 입력하면 문의글이 담당자에게 바로 전달돼요.</p>
+      <div style="{{ ctaButtonsStyle }}">
+        <span onClick="{{ openInquiry }}" style="display:block;text-align:center;background:#ff4600;color:#fff;font-size:14px;font-weight:700;padding:15px;border-radius:3px;cursor:pointer;{{ ctaButtonFlexStyle }}">문의글 보내기</span>
+        <a href="tel:031-595-2647" style="display:block;text-align:center;background:transparent;color:#fff;box-shadow:inset 0 0 0 1.5px rgba(255,255,255,.5);font-size:14px;font-weight:700;padding:15px;border-radius:3px;text-decoration:none;{{ ctaButtonFlexStyle }}">📞 전화 상담하기 · 031-595-2647</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- =================== INQUIRY OVERLAY =================== -->
+  <sc-if value="{{ showInquiry }}" hint-placeholder-val="{{ false }}">
+    <div class="noscroll" style="{{ overlayShellStyle }}">
+      <div style="{{ overlayPanelStyle }}">
+
+        <div style="position:sticky;top:0;z-index:10;display:flex;align-items:center;gap:12px;padding:16px 20px;background:rgba(255,255,255,.94);backdrop-filter:blur(12px);border-bottom:1px solid #eeeeee;">
+          <span onClick="{{ closeInquiry }}" style="font-size:20px;color:#002452;cursor:pointer;line-height:1;width:24px;">←</span>
+          <div style="flex:1;">
+            <div style="font-size:9.5px;letter-spacing:.24em;font-weight:700;color:#8a9099;">INQUIRY</div>
+            <div style="font-weight:700;font-size:16px;color:#002452;letter-spacing:-.02em;">무료 견적 · 상담 문의</div>
+          </div>
+        </div>
+
+        <div style="padding:16px 22px 0;">
+          <p style="margin:0;font-weight:300;font-size:12.5px;line-height:1.6;color:#8a9099;">아래 내용을 작성해 보내주시면 담당자 이메일로 바로 전달됩니다.</p>
+        </div>
+
+        <div style="padding:8px 22px 40px;">
+
+          <sc-if value="{{ justSent }}" hint-placeholder-val="{{ false }}">
+            <div style="display:flex;align-items:center;gap:10px;padding:15px 16px;border-radius:4px;background:#fff4ee;box-shadow:inset 0 0 0 1px #ffcdb0;margin:12px 0 4px;">
+              <span style="width:7px;height:7px;flex:0 0 auto;background:#ff4600;border-radius:50%;"></span>
+              <span style="font-size:13px;font-weight:700;color:#002452;line-height:1.5;">정상 문의신청 되었습니다. 1~2영업일 이내로 연락을 드리겠습니다.</span>
+            </div>
+          </sc-if>
+
+          <!-- 01 제품 선택 -->
+          <div style="padding:24px 0 10px;border-bottom:1px solid #eeeeee;">
+            <div style="display:flex;align-items:baseline;gap:10px;margin-bottom:14px;">
+              <span style="font-size:11px;font-weight:700;color:#ff4600;letter-spacing:.08em;">01</span>
+              <h4 style="margin:0;font-weight:700;font-size:15px;color:#002452;letter-spacing:-.01em;">제품 선택</h4>
+            </div>
+            <div style="display:flex;flex-wrap:wrap;gap:8px;">
+              <sc-for list="{{ productChips }}" as="c" hint-placeholder-count="5">
+                <sc-if value="{{ c.active }}" hint-placeholder-val="{{ false }}">
+                  <span onClick="{{ c.onClick }}" style="flex:0 0 auto;font-size:12.5px;font-weight:600;padding:10px 15px;border-radius:3px;cursor:pointer;letter-spacing:-.01em;background:#002452;color:#fff;box-shadow:inset 0 0 0 1px #002452;">{{ c.label }}</span>
+                </sc-if>
+                <sc-if value="{{ c.inactive }}" hint-placeholder-val="{{ true }}">
+                  <span onClick="{{ c.onClick }}" style="flex:0 0 auto;font-size:12.5px;font-weight:600;padding:10px 15px;border-radius:3px;cursor:pointer;letter-spacing:-.01em;background:#fff;color:#53595f;box-shadow:inset 0 0 0 1px #e2e2e2;">{{ c.label }}</span>
+                </sc-if>
+              </sc-for>
+            </div>
+          </div>
+
+          <!-- 02 설치 장소 -->
+          <div style="padding:22px 0 10px;border-bottom:1px solid #eeeeee;">
+            <div style="display:flex;align-items:baseline;gap:10px;margin-bottom:6px;">
+              <span style="font-size:11px;font-weight:700;color:#ff4600;letter-spacing:.08em;">02</span>
+              <h4 style="margin:0;font-weight:700;font-size:15px;color:#002452;letter-spacing:-.01em;">설치 장소</h4>
+            </div>
+            <p style="margin:0 0 14px;font-weight:300;font-size:12px;color:#8a9099;padding-left:31px;">{{ placeHint }}</p>
+            <div style="display:flex;flex-wrap:wrap;gap:8px;">
+              <sc-for list="{{ placeChips }}" as="c" hint-placeholder-count="8">
+                <sc-if value="{{ c.active }}" hint-placeholder-val="{{ false }}">
+                  <span onClick="{{ c.onClick }}" style="flex:0 0 auto;font-size:12.5px;font-weight:600;padding:10px 15px;border-radius:3px;cursor:pointer;letter-spacing:-.01em;background:#002452;color:#fff;box-shadow:inset 0 0 0 1px #002452;">{{ c.label }}</span>
+                </sc-if>
+                <sc-if value="{{ c.inactive }}" hint-placeholder-val="{{ true }}">
+                  <span onClick="{{ c.onClick }}" style="flex:0 0 auto;font-size:12.5px;font-weight:600;padding:10px 15px;border-radius:3px;cursor:pointer;letter-spacing:-.01em;background:#fff;color:#53595f;box-shadow:inset 0 0 0 1px #e2e2e2;">{{ c.label }}</span>
+                </sc-if>
+              </sc-for>
+            </div>
+          </div>
+
+          <!-- 03 사이즈 -->
+          <div style="padding:22px 0 16px;border-bottom:1px solid #eeeeee;">
+            <div style="display:flex;align-items:baseline;gap:10px;margin-bottom:6px;">
+              <span style="font-size:11px;font-weight:700;color:#ff4600;letter-spacing:.08em;">03</span>
+              <h4 style="margin:0;font-weight:700;font-size:15px;color:#002452;letter-spacing:-.01em;">창 크기</h4>
+            </div>
+            <p style="margin:0 0 14px;font-weight:300;font-size:12px;color:#8a9099;padding-left:31px;">창이 여러 개면 창 추가하기로 각각 입력하세요. 하단 셀프 측정 방법을 참고해 주세요.</p>
+            <div style="display:flex;flex-direction:column;gap:10px;">
+              <sc-for list="{{ windowRows }}" as="win" hint-placeholder-count="1">
+                <div style="display:flex;align-items:center;gap:9px;">
+                  <span style="flex:0 0 auto;width:38px;font-size:11px;font-weight:700;color:#8a9099;letter-spacing:.02em;">{{ win.label }}</span>
+                  <div style="flex:1;position:relative;">
+                    <input class="fld" type="number" inputmode="numeric" placeholder="가로" value="{{ win.w }}" onInput="{{ win.onW }}" style="padding-right:34px;">
+                    <span style="position:absolute;right:13px;top:50%;transform:translateY(-50%);font-size:12px;color:#acacac;">cm</span>
+                  </div>
+                  <span style="font-size:14px;color:#c9ccd1;font-weight:600;">×</span>
+                  <div style="flex:1;position:relative;">
+                    <input class="fld" type="number" inputmode="numeric" placeholder="세로" value="{{ win.h }}" onInput="{{ win.onH }}" style="padding-right:34px;">
+                    <span style="position:absolute;right:13px;top:50%;transform:translateY(-50%);font-size:12px;color:#acacac;">cm</span>
+                  </div>
+                  <sc-if value="{{ win.showRemove }}" hint-placeholder-val="{{ false }}">
+                    <span onClick="{{ win.onRemove }}" style="flex:0 0 auto;width:26px;height:26px;display:flex;align-items:center;justify-content:center;font-size:15px;color:#acacac;cursor:pointer;border-radius:3px;box-shadow:inset 0 0 0 1px #e2e2e2;">×</span>
+                  </sc-if>
+                </div>
+              </sc-for>
+            </div>
+            <span onClick="{{ addWindow }}" style="display:inline-flex;align-items:center;gap:6px;margin-top:12px;font-size:12.5px;font-weight:600;color:#002452;background:#fff;box-shadow:inset 0 0 0 1px #002452;padding:10px 16px;border-radius:3px;cursor:pointer;">+ 창 추가하기</span>
+            <div style="margin-top:12px;font-size:12px;color:#53595f;letter-spacing:.02em;line-height:1.6;">{{ sizePreview }}</div>
+          </div>
+
+          <!-- 04 시공서비스 -->
+          <div style="padding:22px 0 10px;border-bottom:1px solid #eeeeee;">
+            <div style="display:flex;align-items:baseline;gap:10px;margin-bottom:14px;">
+              <span style="font-size:11px;font-weight:700;color:#ff4600;letter-spacing:.08em;">04</span>
+              <h4 style="margin:0;font-weight:700;font-size:15px;color:#002452;letter-spacing:-.01em;">시공서비스</h4>
+            </div>
+            <div style="display:flex;flex-wrap:wrap;gap:8px;">
+              <sc-for list="{{ installChips }}" as="c" hint-placeholder-count="2">
+                <sc-if value="{{ c.active }}" hint-placeholder-val="{{ false }}">
+                  <span onClick="{{ c.onClick }}" style="flex:0 0 auto;font-size:12.5px;font-weight:600;padding:10px 15px;border-radius:3px;cursor:pointer;letter-spacing:-.01em;background:#002452;color:#fff;box-shadow:inset 0 0 0 1px #002452;">{{ c.label }}</span>
+                </sc-if>
+                <sc-if value="{{ c.inactive }}" hint-placeholder-val="{{ true }}">
+                  <span onClick="{{ c.onClick }}" style="flex:0 0 auto;font-size:12.5px;font-weight:600;padding:10px 15px;border-radius:3px;cursor:pointer;letter-spacing:-.01em;background:#fff;color:#53595f;box-shadow:inset 0 0 0 1px #e2e2e2;">{{ c.label }}</span>
+                </sc-if>
+              </sc-for>
+            </div>
+          </div>
+
+          <!-- 05 문의사항 -->
+          <div style="padding:22px 0 16px;border-bottom:1px solid #eeeeee;">
+            <div style="display:flex;align-items:baseline;gap:10px;margin-bottom:14px;">
+              <span style="font-size:11px;font-weight:700;color:#ff4600;letter-spacing:.08em;">05</span>
+              <h4 style="margin:0;font-weight:700;font-size:15px;color:#002452;letter-spacing:-.01em;">문의 사항</h4>
+            </div>
+            <textarea class="fld" rows="4" placeholder="원단 색상, 설치 일정, 연창 여부 등 자유롭게 남겨주세요." value="{{ comment }}" onInput="{{ onComment }}" style="resize:none;line-height:1.6;"></textarea>
+          </div>
+
+          <!-- 06 연락처 · 비밀번호 -->
+          <div style="padding:22px 0 18px;border-bottom:1px solid #eeeeee;">
+            <div style="display:flex;align-items:baseline;gap:10px;margin-bottom:6px;">
+              <span style="font-size:11px;font-weight:700;color:#ff4600;letter-spacing:.08em;">06</span>
+              <h4 style="margin:0;font-weight:700;font-size:15px;color:#002452;letter-spacing:-.01em;">연락처 · 비밀번호</h4>
+            </div>
+            <p style="margin:0 0 14px;font-weight:300;font-size:12px;color:#8a9099;padding-left:31px;">비밀번호는 문의 내역 확인 시 사용됩니다.</p>
+            <div style="display:flex;flex-direction:column;gap:10px;">
+              <input class="fld" type="tel" inputmode="tel" placeholder="연락처 (예: 010-1234-5678)" value="{{ contact }}" onInput="{{ onContact }}">
+              <input class="fld" type="password" placeholder="비밀번호 (4자리 이상)" value="{{ password }}" onInput="{{ onPassword }}">
+            </div>
+          </div>
+
+          <!-- 등록 -->
+          <div style="padding:22px 0 8px;">
+            <sc-if value="{{ canSubmit }}" hint-placeholder-val="{{ false }}">
+              <span onClick="{{ openConfirm }}" style="display:block;text-align:center;font-size:14px;font-weight:700;padding:16px;border-radius:3px;background:#ff4600;color:#fff;cursor:pointer;">{{ submitLabel }}</span>
+            </sc-if>
+            <sc-if value="{{ notCanSubmit }}" hint-placeholder-val="{{ true }}">
+              <span onClick="{{ openConfirm }}" style="display:block;text-align:center;font-size:14px;font-weight:700;padding:16px;border-radius:3px;background:#c9ccd1;color:#fff;cursor:pointer;">{{ submitLabel }}</span>
+            </sc-if>
+            <sc-if value="{{ showValidateHint }}" hint-placeholder-val="{{ false }}">
+              <p style="margin:10px 0 0;text-align:center;font-size:11.5px;color:#ff4600;">제품과 설치 장소를 선택해 주세요.</p>
+            </sc-if>
+          </div>
+
+          <!-- 07 문의 게시판 -->
+          <div style="padding:20px 0 4px;">
+            <div style="display:flex;align-items:baseline;justify-content:space-between;margin-bottom:14px;">
+              <div style="display:flex;align-items:baseline;gap:10px;">
+                <span style="font-size:11px;font-weight:700;color:#ff4600;letter-spacing:.08em;">07</span>
+                <h4 style="margin:0;font-weight:700;font-size:15px;color:#002452;letter-spacing:-.01em;">보낸 문의</h4>
+              </div>
+              <span style="font-size:11px;color:#acacac;letter-spacing:.06em;">{{ postCountLabel }}</span>
+            </div>
+
+            <sc-if value="{{ noPosts }}" hint-placeholder-val="{{ true }}">
+              <div style="padding:26px 16px;border-radius:4px;background:#f6f8f9;text-align:center;font-weight:300;font-size:12.5px;color:#8a9099;line-height:1.6;">보낸 문의가 없습니다.<br>문의글을 보내면 이 곳에 기록됩니다.</div>
+            </sc-if>
+
+            <sc-if value="{{ hasPosts }}" hint-placeholder-val="{{ false }}">
+              <div style="display:flex;flex-direction:column;gap:12px;">
+                <sc-for list="{{ posts }}" as="post" hint-placeholder-count="1">
+                  <div style="border-radius:4px;box-shadow:inset 0 0 0 1px #e2e2e2;overflow:hidden;">
+                    <div style="display:flex;align-items:center;justify-content:space-between;gap:8px;padding:12px 15px;background:#f6f8f9;border-bottom:1px solid #eeeeee;">
+                      <div style="display:flex;align-items:center;gap:8px;min-width:0;">
+                        <span style="flex:0 0 auto;font-size:10px;font-weight:700;color:#fff;background:#002452;padding:3px 8px;border-radius:2px;letter-spacing:.04em;">{{ post.status }}</span>
+                        <span style="font-size:13px;font-weight:700;color:#002452;letter-spacing:-.01em;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">{{ post.product }}</span>
+                      </div>
+                      <span style="flex:0 0 auto;font-size:10.5px;color:#acacac;">{{ post.date }}</span>
+                    </div>
+                    <div style="padding:13px 15px;">
+                      <div style="display:flex;gap:10px;margin-bottom:6px;">
+                        <span style="flex:0 0 auto;width:44px;font-size:10.5px;font-weight:700;color:#acacac;letter-spacing:.04em;">설치</span>
+                        <span style="font-size:12px;color:#53595f;line-height:1.5;">{{ post.placesText }}</span>
+                      </div>
+                      <div style="display:flex;gap:10px;margin-bottom:6px;">
+                        <span style="flex:0 0 auto;width:44px;font-size:10.5px;font-weight:700;color:#acacac;letter-spacing:.04em;">치수</span>
+                        <span style="font-size:12px;color:#53595f;line-height:1.5;">{{ post.winText }}</span>
+                      </div>
+                      <div style="display:flex;gap:10px;margin-bottom:6px;">
+                        <span style="flex:0 0 auto;width:44px;font-size:10.5px;font-weight:700;color:#acacac;letter-spacing:.04em;">시공</span>
+                        <span style="font-size:12px;color:#53595f;line-height:1.5;">{{ post.installNeeded }}</span>
+                      </div>
+                      <div style="display:flex;gap:10px;margin-bottom:6px;">
+                        <span style="flex:0 0 auto;width:44px;font-size:10.5px;font-weight:700;color:#acacac;letter-spacing:.04em;">문의</span>
+                        <span style="font-size:12px;color:#53595f;line-height:1.5;">{{ post.comment }}</span>
+                      </div>
+                      <div style="display:flex;gap:10px;">
+                        <span style="flex:0 0 auto;width:44px;font-size:10.5px;font-weight:700;color:#acacac;letter-spacing:.04em;">연락처</span>
+                        <span style="font-size:12px;color:#53595f;line-height:1.5;">{{ post.contactMasked }}</span>
+                      </div>
+                      <div style="margin-top:12px;padding:12px 14px;border-radius:3px;background:#f6f8f9;display:flex;align-items:center;gap:8px;">
+                        <span style="flex:0 0 auto;font-size:10px;font-weight:700;color:#8a9099;letter-spacing:.08em;">안내</span>
+                        <span style="font-size:11.5px;color:#8a9099;line-height:1.5;">담당자 이메일로 전달되었습니다. 1~2영업일 이내로 연락드립니다.</span>
+                      </div>
+                    </div>
+                  </div>
+                </sc-for>
+              </div>
+            </sc-if>
+          </div>
+
+          <!-- 셀프 측정 방법 (always at bottom) -->
+          <div style="margin-top:30px;padding-top:26px;border-top:2px solid #002452;">
+            <div style="display:flex;align-items:center;gap:9px;margin-bottom:4px;">
+              <span style="width:7px;height:7px;background:#ff4600;border-radius:50%;"></span>
+              <span style="font-size:10.5px;letter-spacing:.24em;font-weight:700;color:#8a9099;">HOW TO MEASURE</span>
+            </div>
+            <h4 style="margin:0 0 16px;font-weight:700;font-size:18px;color:#002452;letter-spacing:-.02em;">블라인드 셀프 측정 방법</h4>
+            <img src="uploads/8.jpg" alt="셀프 측정 방법 1" style="width:100%;height:auto;display:block;border-radius:4px;">
+            <img src="uploads/9.jpg" alt="셀프 측정 방법 2" style="width:100%;height:auto;display:block;border-radius:4px;margin-top:12px;">
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </sc-if>
+
+  <!-- =================== CATALOG BOOK OVERLAY =================== -->
+  <sc-if value="{{ showCatalogBook }}" hint-placeholder-val="{{ false }}">
+    <div class="noscroll" style="{{ overlayShellStyle }}">
+      <div style="{{ overlayPanelStyle }}display:flex;flex-direction:column;">
+
+        <div style="flex:0 0 auto;display:flex;align-items:center;gap:12px;padding:16px 20px;background:rgba(255,255,255,.94);backdrop-filter:blur(12px);border-bottom:1px solid #eeeeee;">
+          <span onClick="{{ closeCatalogBook }}" style="font-size:20px;color:#002452;cursor:pointer;line-height:1;width:24px;">←</span>
+          <div style="flex:1;">
+            <div style="font-size:9.5px;letter-spacing:.24em;font-weight:700;color:#8a9099;">CATALOG</div>
+            <div style="font-weight:700;font-size:16px;color:#002452;letter-spacing:-.02em;">제품 카탈로그</div>
+          </div>
+        </div>
+
+        <div style="flex:0 0 auto;padding:16px 20px 4px;border-bottom:1px solid #eeeeee;">
+          <div style="font-size:10px;letter-spacing:.2em;font-weight:700;color:#8a9099;margin-bottom:10px;">CATEGORY</div>
+          <div style="{{ bookTreeLayoutStyle }}">
+            <sc-for list="{{ bookTree }}" as="c" hint-placeholder-count="6">
+              <sc-if value="{{ c.active }}" hint-placeholder-val="{{ false }}">
+                <span onClick="{{ c.onClick }}" style="display:flex;align-items:center;gap:10px;padding:12px 6px;cursor:pointer;border-left:2px solid #ff4600;padding-left:14px;">
+                  <span style="font-size:13.5px;font-weight:700;color:#002452;letter-spacing:-.01em;">{{ c.name }}</span>
+                </span>
+              </sc-if>
+              <sc-if value="{{ c.inactive }}" hint-placeholder-val="{{ true }}">
+                <span onClick="{{ c.onClick }}" style="display:flex;align-items:center;gap:10px;padding:12px 6px;cursor:pointer;border-left:2px solid #eeeeee;padding-left:14px;">
+                  <span style="font-size:13.5px;font-weight:500;color:#8a9099;letter-spacing:-.01em;">{{ c.name }}</span>
+                </span>
+              </sc-if>
+            </sc-for>
+          </div>
+        </div><div style="flex:1;display:flex;flex-direction:column;align-items:stretch;padding:22px 20px 28px;background:#f6f8f9;">
+          <div style="display:flex;align-items:baseline;justify-content:space-between;width:100%;margin:0 0 14px;">
+            <h3 style="margin:0;font-weight:700;font-size:16px;color:#002452;letter-spacing:-.02em;">{{ bookCatName }}</h3>
+            <sc-if value="{{ bookReady }}" hint-placeholder-val="{{ true }}">
+              <span style="font-size:11.5px;color:#acacac;letter-spacing:.04em;">{{ bookPhotoCountLabel }}</span>
+            </sc-if>
+          </div>
+
+          <sc-if value="{{ bookNotReady }}" hint-placeholder-val="{{ false }}">
+            <div style="max-width: 500px; aspect-ratio: 3/4; border-radius: 6px; background: #fff; box-shadow: inset 0 0 0 1px #eeeeee; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; padding: 30px; height: 100%; width: 100%; align-self: center">
+              <span style="width:44px;height:44px;border-radius:50%;background:#f6f8f9;display:flex;align-items:center;justify-content:center;font-size:20px;margin-bottom:16px;">🛠️</span>
+              <div style="font-weight:700;font-size:16px;color:#002452;letter-spacing:-.02em;margin-bottom:8px;">준비중입니다</div>
+              <p style="margin:0;font-weight:300;font-size:12.5px;line-height:1.6;color:#8a9099;">{{ bookCatName }} 카탈로그는 아직 준비 중이에요.<br>판매자에게 직접 문의해 주세요.</p>
+              <span onClick="{{ openInquiry }}" style="margin-top:18px;font-size:12.5px;font-weight:600;color:#002452;background:#fff;box-shadow:inset 0 0 0 1px #002452;padding:10px 16px;border-radius:3px;cursor:pointer;">문의글 보내기</span>
+            </div>
+          </sc-if>
+
+          <sc-if value="{{ bookReady }}" hint-placeholder-val="{{ true }}">
+            <div style="width:100%;display:flex;flex-direction:column;gap:2px;">
+              <sc-for list="{{ bookPhotoItems }}" as="ph" hint-placeholder-count="1">
+                <div draggable="{{ ph.canDrag }}" onDragStart="{{ ph.onDragStart }}" onDragOver="{{ ph.onDragOver }}" onDrop="{{ ph.onDrop }}" style="position:relative;width:100%;aspect-ratio:4/3;border-radius:0;overflow:hidden;background:#fff;flex:none;">
+                  
+                  <span style="position:absolute;top:8px;left:8px;background:rgba(0,36,82,.72);color:#fff;font-size:10.5px;font-weight:700;padding:3px 8px;border-radius:10px;pointer-events:none;">{{ ph.num }}</span>
+                  <sc-if value="{{ ph.canDrag }}" hint-placeholder-val="{{ false }}">
+                    <span style="position:absolute;top:8px;right:8px;width:28px;height:28px;border-radius:50%;background:rgba(255,255,255,.92);display:flex;align-items:center;justify-content:center;font-size:14px;box-shadow:0 4px 10px rgba(0,36,82,.2);cursor:grab;">⠿</span>
+                  </sc-if>
+                  <span onClick="{{ ph.onZoom }}" style="position:absolute;bottom:8px;right:8px;width:38px;height:38px;border-radius:50%;background:rgba(255,255,255,.92);display:flex;align-items:center;justify-content:center;font-size:16px;box-shadow:0 4px 10px rgba(0,36,82,.2);cursor:pointer;">🔍</span>
+                <sc-if value="{{ ph.isManifest }}" hint-placeholder-val="{{ false }}">
+                  <sc-if value="{{ ph.imgUrl }}" hint-placeholder-val="{{ false }}">
+                    <img src="{{ ph.imgUrl }}" alt="{{ ph.ph }}" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block;">
+                  </sc-if>
+                </sc-if>
+                <sc-if value="{{ ph.notManifest }}" hint-placeholder-val="{{ true }}">
+                  <x-import component-from-global-scope="image-slot" from="./image-slot.js" id="{{ ph.id }}" shape="rect" fit="cover" placeholder="{{ ph.ph }}" hint-size="100%,100%" style="position: absolute; inset: 0; width: 100%; height: 100%; display: block;"></x-import>
+                </sc-if>
+                </div>
+              </sc-for>
+            </div>
+
+            <p style="margin:16px 0 0;font-size:11.5px;color:#8a9099;line-height:1.6;text-align:center;max-width:260px;">사진을 올리면 순서대로 아래에 쌓여요. 사진의 🔍를 눌러 확대하고, 손가락(핀치)으로 질감을 확인해 보세요.</p>
+            <sc-if value="{{ showAddBookPage }}" hint-placeholder-val="{{ false }}">
+              <span onClick="{{ addBookPage }}" style="display:block;margin-top:10px;font-size:9.5px;color:#c9ccd1;letter-spacing:.02em;cursor:pointer;">+ 사진 추가하기</span>
+            </sc-if>
+            <span onClick="{{ toggleAdmin }}" style="display:block;text-align:center;margin-top:16px;font-size:10px;color:#dcdfe4;letter-spacing:.02em;cursor:pointer;">{{ adminLinkLabel }}</span>
+          </sc-if>
+        </div>
+
+        
+      </div>
+    </div>
+  </sc-if>
+
+  <!-- =================== SEND CONFIRM OVERLAY =================== -->
+  <sc-if value="{{ showConfirm }}" hint-placeholder-val="{{ false }}">
+    <div style="position:fixed;inset:0;z-index:80;background:rgba(13,21,38,.6);display:flex;align-items:center;justify-content:center;padding:20px;">
+      <div style="width:100%;max-width:340px;background:#fff;border-radius:14px;box-shadow:0 50px 90px -24px rgba(0,36,82,.4);padding:28px 24px;text-align:center;">
+        <div style="font-size:10.5px;letter-spacing:.22em;font-weight:700;color:#ff4600;margin-bottom:12px;">SEND CONFIRM</div>
+        <h4 style="margin:0 0 10px;font-weight:700;font-size:17px;color:#002452;letter-spacing:-.02em;line-height:1.4;">이대로 문의글이 발송됩니다.<br>보낼까요?</h4>
+        <p style="margin:0 0 22px;font-size:12.5px;line-height:1.6;color:#8a9099;">문의 내용이 정상적으로 접수됩니다.</p>
+        <div style="display:flex;gap:10px;">
+          <span onClick="{{ cancelConfirm }}" style="flex:1;display:block;text-align:center;font-size:13.5px;font-weight:600;padding:13px;border-radius:3px;background:#fff;color:#53595f;box-shadow:inset 0 0 0 1px #e2e2e2;cursor:pointer;">취소</span>
+          <span onClick="{{ submit }}" style="flex:1;display:block;text-align:center;font-size:13.5px;font-weight:700;padding:13px;border-radius:3px;background:#ff4600;color:#fff;cursor:pointer;">네, 보낼게요</span>
+        </div>
+      </div>
+    </div>
+  </sc-if>
+
+  <!-- =================== LIGHTBOX (pinch-zoom) OVERLAY =================== -->
+  <sc-if value="{{ lbOpen }}" hint-placeholder-val="{{ false }}">
+    <div style="position:fixed;inset:0;z-index:70;background:#000;overflow:hidden;display:flex;flex-direction:column;">
+      <div style="flex:0 0 auto;display:flex;align-items:center;justify-content:space-between;padding:14px 18px;background:rgba(0,0,0,.55);">
+        <span onClick="{{ closeLightbox }}" style="color:#fff;font-size:22px;cursor:pointer;line-height:1;">×</span>
+        <span style="color:rgba(255,255,255,.7);font-size:10.5px;letter-spacing:.04em;text-align:center;flex:1;padding:0 10px;">손가락(또는 마우스휠)으로 확대해 질감을 확인하세요</span>
+        <span onClick="{{ resetLightboxZoom }}" style="color:#fff;font-size:12px;font-weight:600;cursor:pointer;white-space:nowrap;">초기화</span>
+      </div>
+      <div onPointerDown="{{ onLbPointerDown }}" onPointerMove="{{ onLbPointerMove }}" onPointerUp="{{ onLbPointerUp }}" onPointerCancel="{{ onLbPointerUp }}" onDoubleClick="{{ onLbDoubleClick }}" style="flex:1;position:relative;display:flex;align-items:center;justify-content:center;touch-action:none;overflow:hidden;padding:12px;">
+        <div style="width:100%;height:100%;{{ lbTransformStyle }}">
+          <x-import component-from-global-scope="image-slot" from="./image-slot.js" id="{{ lbSlotId }}" shape="rect" fit="contain" placeholder="{{ lbSlotPh }}" style="width:100%;height:100%;pointer-events:none;" hint-size="100%,100%"></x-import>
+        </div>
+      </div>
+    </div>
+  </sc-if>
+
+  <!-- =================== GALLERY OVERLAY =================== -->
+  <sc-if value="{{ showGallery }}" hint-placeholder-val="{{ false }}">
+    <div class="noscroll" style="position: fixed; inset: 0px; z-index: 40; overflow: hidden auto; background: rgba(13, 21, 38, 0.6); display: flex; justify-content: center; padding: 48px 20px;">
+      <div style="{{ overlayPanelStyle }}">
+
+        <div style="position:sticky;top:0;z-index:10;display:flex;align-items:center;gap:12px;padding:16px 20px;background:rgba(255,255,255,.94);backdrop-filter:blur(12px);border-bottom:1px solid #eeeeee;">
+          <span onClick="{{ closeGallery }}" style="font-size:20px;color:#002452;cursor:pointer;line-height:1;width:24px;">←</span>
+          <div style="flex:1;">
+            <div style="font-size:9.5px;letter-spacing:.24em;font-weight:700;color:#8a9099;">GALLERY</div>
+            <div style="font-weight:700;font-size:16px;color:#002452;letter-spacing:-.02em;">시공 갤러리</div>
+          </div>
+        </div>
+
+        <div class="noscroll" style="position:sticky;top:63px;z-index:9;display:flex;gap:7px;overflow-x:auto;padding:14px 20px;background:rgba(255,255,255,.94);backdrop-filter:blur(12px);border-bottom:1px solid #eeeeee;">
+          <sc-for list="{{ galTabs }}" as="t" hint-placeholder-count="5">
+            <sc-if value="{{ t.active }}" hint-placeholder-val="{{ false }}">
+              <span onClick="{{ t.onClick }}" style="flex:0 0 auto;font-size:12.5px;font-weight:600;padding:9px 16px;border-radius:3px;cursor:pointer;letter-spacing:-.01em;background:#002452;color:#fff;box-shadow:inset 0 0 0 1px #002452;">{{ t.name }}</span>
+            </sc-if>
+            <sc-if value="{{ t.inactive }}" hint-placeholder-val="{{ true }}">
+              <span onClick="{{ t.onClick }}" style="flex:0 0 auto;font-size:12.5px;font-weight:600;padding:9px 16px;border-radius:3px;cursor:pointer;letter-spacing:-.01em;background:#fff;color:#53595f;box-shadow:inset 0 0 0 1px #e2e2e2;">{{ t.name }}</span>
+            </sc-if>
+          </sc-for>
+        </div>
+
+        <div style="padding:20px;">
+          <div style="display:flex;align-items:baseline;justify-content:space-between;margin-bottom:14px;">
+            <h3 style="margin:0;font-weight:700;font-size:20px;color:#002452;letter-spacing:-.02em;">{{ galCatName }}</h3>
+            <span style="font-size:11px;color:#acacac;letter-spacing:.06em;">{{ galCountLabel }}</span>
+          </div>
+          <img src="./10001000-1-mryfa1k5-te4z.jpg" alt="10001000-1" width="1000" height="1000" style="max-width: 100%; height: auto; display: block; object-fit: cover; width: 1000px; aspect-ratio: 1000 / 1000"><p style="margin:0 0 16px;font-weight:300;font-size:12px;color:#8a9099;line-height:1.6;">각 칸을 눌러(또는 사진을 끌어다 놓아) 시공 사진을 올릴 수 있어요. 카테고리마다 여러 장 추가할 수 있습니다.</p>
+
+          <div style="{{ galleryUploadGridStyle }}">
+            <sc-for list="{{ gallerySlots }}" as="slot" hint-placeholder-count="6">
+              <sc-if value="{{ slot.isManifest }}" hint-placeholder-val="{{ false }}">
+                <sc-if value="{{ slot.imgUrl }}" hint-placeholder-val="{{ false }}">
+                  <div style="width:100%;aspect-ratio:4/3;border-radius:4px;overflow:hidden;"><img src="{{ slot.imgUrl }}" alt="{{ slot.ph }}" style="width:100%;height:100%;object-fit:cover;display:block;"></div>
+                </sc-if>
+              </sc-if>
+              <sc-if value="{{ slot.notManifest }}" hint-placeholder-val="{{ true }}">
+                <x-import component-from-global-scope="image-slot" from="./image-slot.js" id="{{ slot.id }}" shape="rounded" radius="4" placeholder="{{ slot.ph }}" style="width:100%;aspect-ratio:4/3;" hint-size="100%,150px"></x-import>
+              </sc-if>
+            </sc-for>
+          </div>
+
+          <sc-if value="{{ showAddGalPhotos }}" hint-placeholder-val="{{ false }}">
+            <span onClick="{{ addGalPhotos }}" style="display:flex;align-items:center;justify-content:center;gap:6px;margin-top:16px;font-size:13px;font-weight:600;color:#002452;background:#fff;box-shadow:inset 0 0 0 1px #002452;padding:14px;border-radius:3px;cursor:pointer;">+ 사진 추가하기</span>
+          </sc-if>
+
+          <span onClick="{{ toggleAdmin }}" style="display:block;text-align:center;margin-top:20px;font-size:11px;color:#c9ccd1;letter-spacing:.02em;cursor:pointer;">{{ adminLinkLabel }}</span>
+        </div>
+      </div>
+    </div>
+  </sc-if>
+
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script>
+class Component extends DCLogic {
+  state = {
+    isDesktop: (typeof window !== "undefined" && window.innerWidth >= 900),
+    showInquiry: false,
+    justSent: false,
+    showGallery: false,
+    galCat: "living",
+    galCounts: { living: 6, bedroom: 6, office: 6, veranda: 6, etc: 6 },
+    catFilter: "all",
+    selGroup: { roll: 0, combi: 0 },
+    isAdmin: false,
+    showCatalogBook: false,
+    bookCat: "roll",
+    bookPhotos: { roll: ["roll-0"], combi: ["combi-0"], curtain: ["curtain-0"] },
+    bookNextIdx: { roll: 1, combi: 1, curtain: 1 },
+    manifests: {},
+    galManifests: {},
+    lbOpen: false,
+    lbCat: "",
+    lbSlotId: "",
+    lbScale: 1,
+    lbPanX: 0,
+    lbPanY: 0,
+    product: "",
+    selPlaces: [],
+    windows: [{ w: "", h: "" }],
+    installNeeded: "",
+    showConfirm: false,
+    comment: "",
+    contact: "",
+    password: "",
+    posts: [],
+    triedSubmit: false,
+  };
+
+  products = [
+    { no: "01", name: "롤스크린",     en: "ROLL SCREEN", tag: "BASIC", img: "uploads/roll-screen.jpg", desc: "군더더기 없는 일자형. 어떤 공간에도 어울리는 기본." },
+    { no: "02", name: "콤비 블라인드", en: "COMBI",       tag: "BEST",  img: "uploads/combi.jpg", desc: "이중 원단으로 빛을 자유롭게 조절." },
+    { no: "03", name: "우드 블라인드", en: "WOOD",        tag: "",      img: "uploads/wood.jpg", desc: "따뜻한 우드 텍스처로 완성하는 분위기." },
+    { no: "04", name: "허니콤 셰이드", en: "HONEYCOMB",   tag: "NEW",   img: "uploads/honeycomb.jpg", desc: "벌집 구조로 단열과 방음까지." },
+    { no: "05", name: "버티컬",       en: "VERTICAL",    tag: "",      img: "", desc: "넓은 창을 위한 세로형 슬랫." },
+  ];
+  places = ["거실", "안방", "베란다", "작은방", "상업시설", "사무실", "주방", "기타"];
+
+  swatchGroups = {
+    roll: [
+      { name: "방염 암막 롤스크린", files: ["BLACK OUT barsk BB.jpg", "BLACK OUT bothside BB.jpg", "BLACK OUT oneside BB.jpg", "BLACK OUT primium BB.jpg", "BLACK OUT rain BB.jpg", "BLACK OUT silver BB.jpg"] },
+      { name: "일반 차광 롤스크린", files: ["ILBAN TC BB.jpg", "ILBAN barsk BB.jpg", "ILBAN eco screen2.jpg", "ILBAN mono screen BB.jpg", "ILBAN prada.jpg", "ILBAN predi BB.jpg", "ILBAN rain BB.jpg", "ILBAN rukas BB.jpg", "ILBAN teras BB.jpg", "sun screen BB.jpg"] },
+    ],
+    combi: [
+      { name: "방염 콤비블라인드", files: ["BLACK OUT Blackstone BB.jpg", "BLACK OUT VETERAN BB.jpg", "BLACK OUT captain BB.jpg", "BLACK OUT magma BBjpg.jpg", "ILBAN basic BB.jpg", "ILBAN basic BB2.jpg", "ILBAN crease alpha BB.jpg", "ILBAN crease beta BB.jpg", "ILBAN kiruna BB.jpg", "MIDDLE SENSE BB.jpg", "MIDDLE crazy BB.jpg"] },
+      { name: "블랙아웃 강암막 콤비블라인드", files: ["BLACK OUT Blackstone BB.jpg", "BLACK OUT VETERAN BB.jpg", "BLACK OUT atlan.jpg", "BLACK OUT captain BB.jpg", "BLACK OUT impact.jpg", "BLACK OUT k2.jpg", "BLACK OUT magma BBjpg.jpg", "BLACK OUT music .jpg", "Black out himalaya.jpg"] },
+      { name: "일반차광 콤비블라인드", files: ["ILBAN angel pleted.jpg", "ILBAN basic BB.jpg", "ILBAN basic BB2.jpg", "ILBAN cebu.jpg", "ILBAN crease alpha BB.jpg", "ILBAN crease beta BB.jpg", "ILBAN gradation .jpg", "ILBAN kanu.jpg", "ILBAN kiruna BB.jpg", "ILBAN metal gradation.jpg", "ILBAN monica.jpg", "ILBAN phuket multi.jpg", "ILBAN ruby .jpg", "ILBAN seven crease.jpg", "ILBAN wood look.jpg", "ILBAN woodlook2.jpg"] },
+      { name: "중 암막 콤비블라인드", files: ["MIDDLE BALI.jpg", "MIDDLE SENSE BB.jpg", "MIDDLE advanture.jpg", "MIDDLE charisma.jpg", "MIDDLE crazy BB.jpg", "MIDDLE monster.jpg", "MIDDLE soul.jpg"] },
+    ],
+  };
+  swatchFolder = { roll: "롤스크린", combi: "콤비블라인드" };
+  bookFolder = { roll: "롤스크린", combi: "콤비블라인드", wood: "우드블라인드", honeycomb: "허니콤쉐이드", vertical: "버티컬", curtain: "커튼" };
+  galFolder = { living: "거실", bedroom: "침실", office: "사무실", veranda: "베란다", etc: "기타" };
+  bookCategories = [
+    { key: "roll", name: "롤스크린" },
+    { key: "combi", name: "콤비블라인드" },
+    { key: "wood", name: "우드블라인드" },
+    { key: "honeycomb", name: "허니콤쉐이드" },
+    { key: "vertical", name: "버티컬" },
+    { key: "curtain", name: "커튼" },
+  ];
+  galCategories = [
+    { key: "living", name: "거실" },
+    { key: "bedroom", name: "침실" },
+    { key: "office", name: "사무실" },
+    { key: "veranda", name: "베란다" },
+    { key: "etc", name: "기타" },
+  ];
+
+  componentDidMount() {
+    this._onResize = () => {
+      const desktop = window.innerWidth >= 900;
+      if (desktop !== this.state.isDesktop) this.setState({ isDesktop: desktop });
+    };
+    window.addEventListener("resize", this._onResize);
+    // 6개 카테고리 전부 CMS(manifest) 연동. 실패/빈 목록이면 기존 하드코딩(또는 준비중) 화면으로 폴백.
+    Object.keys(this.bookFolder).forEach((cat) => {
+      fetch(`uploads/${cat}-manifest.json`)
+        .then((r) => (r.ok ? r.json() : null))
+        .then((data) => {
+          let list = null;
+          if (Array.isArray(data)) list = data;
+          else if (data && Array.isArray(data.photos)) list = data.photos.map((p) => (typeof p === "string" ? p : p.src)).filter(Boolean);
+          if (Array.isArray(list) && list.length) this.setState((s) => ({ manifests: { ...s.manifests, [cat]: list } }));
+        })
+        .catch(() => {});
+    });
+    Object.keys(this.galFolder).forEach((cat) => {
+      fetch(`uploads/gallery-${cat}-manifest.json`)
+        .then((r) => (r.ok ? r.json() : null))
+        .then((data) => {
+          let list = null;
+          if (Array.isArray(data)) list = data;
+          else if (data && Array.isArray(data.photos)) list = data.photos.map((p) => (typeof p === "string" ? p : p.src)).filter(Boolean);
+          if (Array.isArray(list) && list.length) this.setState((s) => ({ galManifests: { ...s.galManifests, [cat]: list } }));
+        })
+        .catch(() => {});
+    });
+  }
+  componentWillUnmount() {
+    if (this._onResize) window.removeEventListener("resize", this._onResize);
+  }
+
+  chipStyle(active) {
+    const base = "flex:0 0 auto;font-size:12.5px;font-weight:600;padding:10px 15px;border-radius:3px;cursor:pointer;transition:all .15s;letter-spacing:-.01em;";
+    return active
+      ? base + "background:#002452;color:#fff;box-shadow:inset 0 0 0 1px #002452;"
+      : base + "background:#fff;color:#53595f;box-shadow:inset 0 0 0 1px #e2e2e2;";
+  }
+
+  winText(ws) {
+    const filled = ws.filter((w) => w.w || w.h);
+    if (!filled.length) return "치수 미입력";
+    return ws.map((w, i) => `창${i + 1} ${w.w || "—"}×${w.h || "—"}`).join("  /  ") + " cm";
+  }
+  _pointers = new Map();
+  _pinchStartDist = 0;
+  _pinchStartScale = 1;
+  _panStart = null;
+  _hadPinch = false;
+  _dragCat = null;
+  _dragId = null;
+
+  onLbPointerDown = (e) => {
+    if (this._pointers.size === 0) this._hadPinch = false;
+    this._pointers.set(e.pointerId, { x: e.clientX, y: e.clientY });
+    if (this._pointers.size === 2) {
+      this._hadPinch = true;
+      const pts = [...this._pointers.values()];
+      this._pinchStartDist = Math.hypot(pts[0].x - pts[1].x, pts[0].y - pts[1].y) || 1;
+      this._pinchStartScale = this.state.lbScale;
+    } else if (this._pointers.size === 1) {
+      this._panStart = { x: e.clientX, y: e.clientY, panX: this.state.lbPanX, panY: this.state.lbPanY };
+    }
+  };
+  onLbPointerMove = (e) => {
+    if (!this._pointers.has(e.pointerId)) return;
+    this._pointers.set(e.pointerId, { x: e.clientX, y: e.clientY });
+    if (this._pointers.size === 2) {
+      this._hadPinch = true;
+      const pts = [...this._pointers.values()];
+      const dist = Math.hypot(pts[0].x - pts[1].x, pts[0].y - pts[1].y) || 1;
+      let scale = this._pinchStartScale * (dist / this._pinchStartDist);
+      scale = Math.max(1, Math.min(5, scale));
+      this.setState({ lbScale: scale });
+    } else if (this._pointers.size === 1 && this.state.lbScale > 1.01 && this._panStart) {
+      const dx = e.clientX - this._panStart.x;
+      const dy = e.clientY - this._panStart.y;
+      this.setState({ lbPanX: this._panStart.panX + dx, lbPanY: this._panStart.panY + dy });
+    }
+  };
+  onLbPointerUp = (e) => {
+    this._pointers.delete(e.pointerId);
+    if (this._pointers.size < 2) this._pinchStartDist = 0;
+    if (this._pointers.size === 0) {
+      if (!this._hadPinch && this._panStart) {
+        const dx = e.clientX - this._panStart.x;
+        const dy = e.clientY - this._panStart.y;
+        if (Math.abs(dx) > 60 && Math.abs(dx) > Math.abs(dy) * 1.4) {
+          this._navigateLightbox(dx < 0 ? 1 : -1);
+          this._panStart = null;
+          this._hadPinch = false;
+          return;
+        }
+      }
+      this.setState({ lbScale: 1, lbPanX: 0, lbPanY: 0 });
+      this._hadPinch = false;
+    }
+    if (this._pointers.size === 1) {
+      const p = [...this._pointers.values()][0];
+      this._panStart = { x: p.x, y: p.y, panX: this.state.lbPanX, panY: this.state.lbPanY };
+    }
+  };
+  _navigateLightbox = (dir) => {
+    const s = this.state;
+    const ids = s.bookPhotos[s.lbCat] || [];
+    const i = ids.indexOf(s.lbSlotId);
+    if (i < 0 || ids.length < 2) { this.setState({ lbScale: 1, lbPanX: 0, lbPanY: 0 }); return; }
+    const next = (i + dir + ids.length) % ids.length;
+    this.setState({ lbSlotId: ids[next], lbScale: 1, lbPanX: 0, lbPanY: 0 });
+  };
+  onLbDoubleClick = () => {
+    if (this.state.lbScale > 1.01) this.setState({ lbScale: 1, lbPanX: 0, lbPanY: 0 });
+    else this.setState({ lbScale: 2.4, lbPanX: 0, lbPanY: 0 });
+  };
+
+  maskContact(c) {
+    if (!c) return "연락처 미입력";
+    const d = c.replace(/[^0-9]/g, "");
+    if (d.length < 4) return c;
+    return d.slice(0, 3) + "-****-" + d.slice(-4);
+  }
+
+  renderVals() {
+    const s = this.state;
+    const isDesktop = s.isDesktop;
+    const isMobile = !isDesktop;
+    const canSubmit = !!(s.product && s.selPlaces.length);
+
+    const productChips = this.products.map((p) => {
+      const active = s.product === p.name;
+      return { label: p.name, onClick: () => this.setState({ product: p.name }), active, inactive: !active };
+    });
+
+    const placeChips = this.places.map((pl) => {
+      const active = s.selPlaces.includes(pl);
+      return {
+        label: pl,
+        onClick: () => {
+          const cur = this.state.selPlaces;
+          if (cur.includes(pl)) this.setState({ selPlaces: cur.filter((x) => x !== pl) });
+          else if (cur.length < 3) this.setState({ selPlaces: [...cur, pl] });
+        },
+        active,
+        inactive: !active,
+      };
+    });
+
+    const setWin = (i, key, val) => {
+      const ws = this.state.windows.map((w, idx) => (idx === i ? { ...w, [key]: val } : w));
+      this.setState({ windows: ws });
+    };
+    const windowRows = s.windows.map((w, i) => ({
+      label: `창 ${i + 1}`,
+      w: w.w,
+      h: w.h,
+      showRemove: s.windows.length > 1,
+      onW: (e) => setWin(i, "w", e.target.value),
+      onH: (e) => setWin(i, "h", e.target.value),
+      onRemove: () => this.setState({ windows: this.state.windows.filter((_, idx) => idx !== i) }),
+    }));
+
+    const bg = (img) => (img ? `background:#e2e2e2 url('${img}') center/cover no-repeat;` : "background:#e2e2e2;");
+    const noToBookCat = { "01": "roll", "02": "combi", "03": "wood", "04": "honeycomb", "05": "vertical" };
+    const products = this.products.map((p) => ({
+      ...p,
+      catThumb: "position:relative;aspect-ratio:4/3;border-radius:3px;overflow:hidden;" + bg(p.img),
+      rowThumb: "width:64px;height:64px;flex:0 0 auto;border-radius:3px;overflow:hidden;" + bg(p.img),
+      openCatalog: () => this.setState({ showCatalogBook: true, bookCat: noToBookCat[p.no] || "roll" }),
+    }));
+
+    const sizePreview = this.winText(s.windows);
+
+    const installChips = ["필요", "불필요"].map((v) => {
+      const active = s.installNeeded === v;
+      return { label: v, active, inactive: !active, onClick: () => this.setState({ installNeeded: v }) };
+    });
+
+    const catFilters = [
+      { key: "all", label: "전체" },
+      { key: "roll", label: "롤스크린" },
+      { key: "combi", label: "콤비" },
+      { key: "wood", label: "우드" },
+      { key: "honeycomb", label: "허니콤" },
+      { key: "vertical", label: "버티컬" },
+    ];
+    const catChips = catFilters.map((f) => ({
+      label: f.label,
+      active: s.catFilter === f.key,
+      inactive: s.catFilter !== f.key,
+      onClick: () => this.setState({ catFilter: f.key }),
+    }));
+    const isSwatchMode = s.catFilter === "roll" || s.catFilter === "combi";
+    const filterKeyToNo = { wood: "03", honeycomb: "04", vertical: "05" };
+    const filteredProducts = s.catFilter === "all" ? products : products.filter((p) => p.no === filterKeyToNo[s.catFilter]);
+
+    let groupChips = [];
+    let swatchCards = [];
+    let activeGroupName = "";
+    if (isSwatchMode) {
+      const groups = this.swatchGroups[s.catFilter];
+      const folder = this.swatchFolder[s.catFilter];
+      const activeIdx = s.selGroup[s.catFilter] || 0;
+      groupChips = groups.map((g, i) => ({
+        name: g.name,
+        active: i === activeIdx,
+        inactive: i !== activeIdx,
+        onClick: () => this.setState({ selGroup: { ...this.state.selGroup, [s.catFilter]: i } }),
+      }));
+      const activeGroup = groups[activeIdx];
+      activeGroupName = activeGroup.name;
+      swatchCards = activeGroup.files.map((f) => ({
+        label: f.replace(/\.jpe?g$/i, "").trim(),
+        thumb: `background:#e2e2e2 url('uploads/${folder}/${activeGroup.name}/${f}') center/cover no-repeat;`,
+      }));
+    }
+
+    const bookActiveCat = this.bookCategories.find((c) => c.key === s.bookCat) || this.bookCategories[0];
+    const bookTree = this.bookCategories.map((c) => ({
+      name: c.name,
+      active: s.bookCat === c.key,
+      inactive: s.bookCat !== c.key,
+      onClick: () => this.setState({ bookCat: c.key }),
+    }));
+    const notReadyCats = ["wood", "honeycomb", "vertical"];
+    const activeManifest = s.manifests[s.bookCat];
+    const isManifestMode = Array.isArray(activeManifest) && activeManifest.length > 0;
+    const bookNotReady = notReadyCats.includes(s.bookCat) && !isManifestMode;
+    const bookReady = !bookNotReady;
+
+    const reorder = (cat, dragId, targetId) => {
+      const arr = [...(this.state.bookPhotos[cat] || [])];
+      const from = arr.indexOf(dragId);
+      const to = arr.indexOf(targetId);
+      if (from < 0 || to < 0 || from === to) return;
+      arr.splice(from, 1);
+      arr.splice(to, 0, dragId);
+      this.setState({ bookPhotos: { ...this.state.bookPhotos, [cat]: arr } });
+    };
+
+    const bookPhotoIds = bookReady ? (isManifestMode ? activeManifest : (s.bookPhotos[s.bookCat] || [])) : [];
+    const bookPhotoItems = bookPhotoIds.map((id, idx) => {
+      if (isManifestMode) {
+        const folder = this.bookFolder[s.bookCat];
+        const imgUrl = /^https?:|^uploads\//.test(id) ? id : `uploads/${folder}/${id}`;
+        return {
+          id: `roll-manifest-${idx}`,
+          num: idx + 1,
+          isManifest: true,
+          notManifest: false,
+          imgUrl,
+          ph: `롤스크린 사진 ${idx + 1}`,
+          canDrag: false,
+          onDragStart: () => {},
+          onDragOver: (e) => e.preventDefault(),
+          onDrop: () => {},
+          onZoom: () => window.open(imgUrl, "_blank"),
+        };
+      }
+      return {
+        id,
+        num: idx + 1,
+        isManifest: false,
+        notManifest: true,
+        imgUrl: "",
+        ph: `${bookActiveCat.name} 사진 ${idx + 1}`,
+        canDrag: s.isAdmin,
+        slotStyle: s.isAdmin ? "width:100%;height:100%;" : "width:100%;height:100%;pointer-events:none;",
+        onDragStart: () => { this._dragCat = s.bookCat; this._dragId = id; },
+        onDragOver: (e) => e.preventDefault(),
+        onDrop: (e) => {
+          e.preventDefault();
+          if (this._dragCat === s.bookCat && this._dragId) reorder(s.bookCat, this._dragId, id);
+          this._dragCat = null;
+          this._dragId = null;
+        },
+        onZoom: () => this.setState({ lbOpen: true, lbCat: s.bookCat, lbSlotId: id, lbScale: 1, lbPanX: 0, lbPanY: 0 }),
+      };
+    });
+    const lbActiveCat = this.bookCategories.find((c) => c.key === s.lbCat);
+    const lbTransformStyle = `transform:translate(${s.lbPanX}px,${s.lbPanY}px) scale(${s.lbScale});transform-origin:center center;transition:${s.lbScale <= 1.02 ? "transform .18s ease" : "none"};`;
+
+    const galActive = this.galCategories.find((c) => c.key === s.galCat) || this.galCategories[0];
+    const galTabs = this.galCategories.map((c) => ({
+      name: c.name,
+      active: s.galCat === c.key,
+      inactive: s.galCat !== c.key,
+      onClick: () => this.setState({ galCat: c.key }),
+    }));
+    const galN = s.galCounts[s.galCat] || 0;
+    const galManifest = s.galManifests[s.galCat];
+    const isGalManifestMode = Array.isArray(galManifest) && galManifest.length > 0;
+    const gallerySlots = isGalManifestMode
+      ? galManifest.map((id, i) => {
+          const folder = this.galFolder[s.galCat];
+          const imgUrl = /^https?:|^uploads\//.test(id) ? id : `uploads/${folder}/${id}`;
+          return { isManifest: true, notManifest: false, imgUrl, ph: `${galActive.name} 시공 ${i + 1}`, id: `gal-m-${s.galCat}-${i}` };
+        })
+      : Array.from({ length: galN }).map((_, i) => ({
+          isManifest: false,
+          notManifest: true,
+          imgUrl: "",
+          id: `gal-${s.galCat}-${i}`,
+          ph: `${galActive.name} 시공 ${i + 1}`,
+        }));
+
+    // ── responsive layout values ──
+    const navPadStyle = isDesktop ? "padding:18px 0;" : "padding:17px 0 15px;";
+    const pageInnerWidthStyle = isDesktop ? "max-width:1180px;margin:0 auto;padding:0 40px;" : "padding:0 22px;";
+    const productsGridStyle = isDesktop ? "display:grid;grid-template-columns:1fr 1fr;column-gap:48px;" : "";
+    const galleryGridStyle = `display:grid;grid-template-columns:${isDesktop ? "repeat(4,1fr)" : "1fr 1fr"};gap:${isDesktop ? "14px" : "7px"};`;
+    const galleryCardH = isDesktop ? "220px" : "122px";
+    const ctaButtonsStyle = isDesktop ? "display:flex;gap:12px;" : "display:flex;flex-direction:column;gap:10px;";
+    const ctaButtonFlexStyle = isDesktop ? "flex:1;" : "";
+    const showroomLayoutStyle = isDesktop ? "display:flex;gap:48px;align-items:flex-start;margin-top:0;" : "display:flex;flex-direction:column;gap:16px;";
+    const showroomInfoWidthStyle = isDesktop ? "flex:0 0 320px;" : "";
+    const showroomMapWidthStyle = isDesktop ? "flex:1;" : "";
+    const mapHeight = isDesktop ? "260" : "180";
+    const catalogGridStyle = `display:grid;grid-template-columns:${isDesktop ? "repeat(4,1fr)" : "1fr 1fr"};gap:${isDesktop ? "24px 20px" : "20px 12px"};`;
+    const swatchGridStyle = `display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:${isDesktop ? "32px" : "20px"};max-width:1020px;margin:0 auto;justify-content:center;`;
+    const bookTreeLayoutStyle = isDesktop ? "display:flex;flex-wrap:wrap;gap:6px;" : "display:flex;flex-direction:column;";
+    const galleryUploadGridStyle = `display:grid;grid-template-columns:${isDesktop ? "repeat(4,1fr)" : "1fr 1fr"};gap:10px;`;
+    const overlayShellStyle = isDesktop
+      ? "position:fixed;inset:0;z-index:40;overflow-y:auto;overflow-x:hidden;background:rgba(13,21,38,.6);display:flex;justify-content:center;padding:48px 20px;"
+      : "position:fixed;inset:0;z-index:40;overflow-y:auto;overflow-x:hidden;background:#fff;";
+    const overlayPanelStyle = isDesktop
+      ? "width:100%;max-width:560px;background:#fff;border-radius:14px;box-shadow:0 50px 90px -24px rgba(0,36,82,.4);overflow:hidden;height:fit-content;"
+      : "width:100%;";
+
+    return {
+      isDesktop,
+      isMobile,
+      navPadStyle,
+      pageInnerWidthStyle,
+      productsGridStyle,
+      galleryGridStyle,
+      galleryCardH,
+      ctaButtonsStyle,
+      ctaButtonFlexStyle,
+      showroomLayoutStyle,
+      showroomInfoWidthStyle,
+      showroomMapWidthStyle,
+      mapHeight,
+      catalogGridStyle,
+      swatchGridStyle,
+      bookTreeLayoutStyle,
+      galleryUploadGridStyle,
+      overlayShellStyle,
+      overlayPanelStyle,
+      products,
+      showInquiry: s.showInquiry,
+      showGallery: s.showGallery,
+      productChips,
+      placeChips,
+      placeHint: s.selPlaces.length ? `${s.selPlaces.length}개 선택됨 (최대 3개)` : "복수 선택 가능 (최대 3개)",
+      windowRows,
+      installChips,
+      installNeeded: s.installNeeded,
+      showConfirm: s.showConfirm,
+      openConfirm: () => {
+        if (!canSubmit) { this.setState({ triedSubmit: true }); return; }
+        this.setState({ showConfirm: true });
+      },
+      cancelConfirm: () => this.setState({ showConfirm: false }),
+      contact: s.contact,
+      password: s.password,
+      comment: s.comment,
+      sizePreview,
+      posts: s.posts,
+      hasPosts: s.posts.length > 0,
+      noPosts: s.posts.length === 0,
+      postCountLabel: `${s.posts.length}건`,
+      showValidateHint: s.triedSubmit && !canSubmit,
+      canSubmit,
+      notCanSubmit: !canSubmit,
+      submitLabel: "문의글 보내기",
+      justSent: s.justSent,
+      openInquiry: () => this.setState({ showInquiry: true, justSent: false }),
+      closeInquiry: () => this.setState({ showInquiry: false }),
+      showCatalogBook: s.showCatalogBook,
+      bookReady,
+      bookNotReady,
+      openCatalogBook: () => this.setState({ showCatalogBook: true, bookCat: "roll" }),
+      closeCatalogBook: () => this.setState({ showCatalogBook: false }),
+      bookTree,
+      bookCatName: bookActiveCat.name,
+      bookPhotoItems,
+      bookPhotoCountLabel: `${bookPhotoItems.length}장`,
+      showAddBookPage: s.isAdmin && !isManifestMode,
+      addBookPage: () => {
+        const cat = this.state.bookCat;
+        const idx = this.state.bookNextIdx[cat] || 0;
+        const newId = `${cat}-${idx}`;
+        this.setState({
+          bookPhotos: { ...this.state.bookPhotos, [cat]: [...(this.state.bookPhotos[cat] || []), newId] },
+          bookNextIdx: { ...this.state.bookNextIdx, [cat]: idx + 1 },
+        });
+      },
+      lbOpen: s.lbOpen,
+      lbSlotId: s.lbSlotId,
+      lbSlotPh: lbActiveCat ? `${lbActiveCat.name} 사진` : "사진",
+      lbTransformStyle,
+      closeLightbox: () => this.setState({ lbOpen: false }),
+      resetLightboxZoom: () => this.setState({ lbScale: 1, lbPanX: 0, lbPanY: 0 }),
+      onLbPointerDown: this.onLbPointerDown,
+      onLbPointerMove: this.onLbPointerMove,
+      onLbPointerUp: this.onLbPointerUp,
+      onLbDoubleClick: this.onLbDoubleClick,
+      catChips,
+      isSwatchMode,
+      notSwatchMode: !isSwatchMode,
+      filteredProducts,
+      groupChips,
+      swatchCards,
+      activeGroupName,
+      swatchCountLabel: `${swatchCards.length}개 컬러`,
+      isAdmin: s.isAdmin,
+      isNotAdmin: !s.isAdmin,
+      adminLinkLabel: s.isAdmin ? "관리자 모드 종료" : "관리자이신가요?",
+      toggleAdmin: () => {
+        if (this.state.isAdmin) { this.setState({ isAdmin: false }); return; }
+        const pw = window.prompt("관리자 비밀번호를 입력하세요.");
+        if (pw === null) return;
+        const enc = new TextEncoder().encode(pw);
+        crypto.subtle.digest("SHA-256", enc).then((buf) => {
+          const hex = Array.from(new Uint8Array(buf)).map((b) => b.toString(16).padStart(2, "0")).join("");
+          const ADMIN_PW_HASH = "72fece5af2c458051696cb383a9070ee19101a2416b591ddfa87fd6161fbc430";
+          if (hex === ADMIN_PW_HASH) this.setState({ isAdmin: true });
+          else window.alert("비밀번호가 올바르지 않습니다.");
+        });
+      },
+      openGallery: () => this.setState({ showGallery: true }),
+      closeGallery: () => this.setState({ showGallery: false }),
+      galTabs,
+      galCatName: galActive.name,
+      galCountLabel: `${gallerySlots.length}장`,
+      gallerySlots,
+      showAddGalPhotos: s.isAdmin && !isGalManifestMode,
+      addGalPhotos: () =>
+        this.setState({
+          galCounts: { ...this.state.galCounts, [this.state.galCat]: (this.state.galCounts[this.state.galCat] || 0) + 3 },
+        }),
+      addWindow: () => this.setState({ windows: [...this.state.windows, { w: "", h: "" }] }),
+      onComment: (e) => this.setState({ comment: e.target.value }),
+      onContact: (e) => this.setState({ contact: e.target.value }),
+      onPassword: (e) => this.setState({ password: e.target.value }),
+      submit: () => {
+        const st = this.state;
+        if (!(st.product && st.selPlaces.length)) {
+          this.setState({ triedSubmit: true, showConfirm: false });
+          return;
+        }
+        const now = new Date();
+        const pad = (n) => String(n).padStart(2, "0");
+        const dateStr = `${now.getFullYear()}.${pad(now.getMonth() + 1)}.${pad(now.getDate())} ${pad(now.getHours())}:${pad(now.getMinutes())}`;
+        const post = {
+          id: Date.now(),
+          num: st.posts.length + 1,
+          product: st.product,
+          placesText: st.selPlaces.join(", "),
+          winText: this.winText(st.windows),
+          installNeeded: st.installNeeded || "미선택",
+          comment: st.comment || "—",
+          contactMasked: this.maskContact(st.contact),
+          date: dateStr,
+          status: "발송 완료",
+        };
+
+        const bodyLines = [
+          `제품: ${st.product}`,
+          `설치 장소: ${st.selPlaces.join(", ")}`,
+          `창 크기: ${this.winText(st.windows)}`,
+          `시공서비스: ${st.installNeeded || "미선택"}`,
+          `문의사항: ${st.comment || "—"}`,
+          `연락처: ${st.contact || "—"}`,
+        ].join("\n");
+        const encodeForm = (data) =>
+          Object.keys(data).map((k) => encodeURIComponent(k) + "=" + encodeURIComponent(data[k])).join("&");
+        fetch("/", {
+          method: "POST",
+          headers: { "Content-Type": "application/x-www-form-urlencoded" },
+          body: encodeForm({
+            "form-name": "inquiry",
+            product: st.product,
+            places: st.selPlaces.join(", "),
+            size: this.winText(st.windows),
+            install: st.installNeeded || "미선택",
+            comment: st.comment || "",
+            contact: st.contact || "",
+          }),
+        }).catch(() => {});
+
+        this.setState({
+          posts: [post, ...this.state.posts],
+          product: "",
+          selPlaces: [],
+          windows: [{ w: "", h: "" }],
+          installNeeded: "",
+          comment: "",
+          contact: "",
+          password: "",
+          triedSubmit: false,
+          justSent: true,
+          showConfirm: false,
+        });
+      },
+    };
+  }
+}
+</script>
+</body>
+</html>
