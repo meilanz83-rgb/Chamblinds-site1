@@ -547,7 +547,13 @@
             <h3 style="margin:0;font-weight:700;font-size:20px;color:#002452;letter-spacing:-.02em;">{{ galCatName }}</h3>
             
           </div>
-          <p style="margin:0 0 16px;font-weight:300;font-size:12px;color:#8a9099;line-height:1.6;"><br></p>
+          
+
+          
+
+          <sc-if value="{{ showAddGalPhotos }}" hint-placeholder-val="{{ false }}">
+            <span onClick="{{ addGalPhotos }}" style="display:flex;align-items:center;justify-content:center;gap:6px;margin-top:16px;font-size:13px;font-weight:600;color:#002452;background:#fff;box-shadow:inset 0 0 0 1px #002452;padding:14px;border-radius:3px;cursor:pointer;">+ 사진 추가하기</span>
+          </sc-if>
 
           <div style="width: 521px; height: 293px">
             <sc-for list="{{ gallerySlots }}" as="slot" hint-placeholder-count="6">
@@ -572,13 +578,7 @@
                 <x-import component-from-global-scope="image-slot" from="./image-slot.js" id="{{ slot.id }}" shape="rounded" radius="4" placeholder="{{ slot.ph }}" style="width:100%;aspect-ratio:4/3;" hint-size="100%,150px"></x-import>
               </sc-if>
             </sc-for>
-          </div>
-
-          <sc-if value="{{ showAddGalPhotos }}" hint-placeholder-val="{{ false }}">
-            <span onClick="{{ addGalPhotos }}" style="display:flex;align-items:center;justify-content:center;gap:6px;margin-top:16px;font-size:13px;font-weight:600;color:#002452;background:#fff;box-shadow:inset 0 0 0 1px #002452;padding:14px;border-radius:3px;cursor:pointer;">+ 사진 추가하기</span>
-          </sc-if>
-
-          <span onClick="{{ toggleAdmin }}" style="display:block;text-align:center;margin-top:20px;font-size:11px;color:#c9ccd1;letter-spacing:.02em;cursor:pointer;">{{ adminLinkLabel }}</span>
+          </div><span onClick="{{ toggleAdmin }}" style="display:block;text-align:center;margin-top:20px;font-size:11px;color:#c9ccd1;letter-spacing:.02em;cursor:pointer;">{{ adminLinkLabel }}</span>
         </div>
       </div>
     </div>
