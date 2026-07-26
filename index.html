@@ -895,7 +895,7 @@ class Component extends DCLogic {
     const bookPhotoItems = bookPhotoIds.map((id, idx) => {
       if (isManifestMode) {
         const folder = this.bookFolder[s.bookCat];
-        const imgUrl = /^https?:|^uploads\//.test(id) ? id : `uploads/${folder}/${id}`;
+        const imgUrl = /^https?:|^\/?uploads\//.test(id) ? id.replace(/^\//, "") : `uploads/${folder}/${id}`;
         return {
           id: `roll-manifest-${idx}`,
           num: idx + 1,
@@ -946,7 +946,7 @@ class Component extends DCLogic {
     const gallerySlots = isGalManifestMode
       ? galManifest.map((id, i) => {
           const folder = this.galFolder[s.galCat];
-          const imgUrl = /^https?:|^uploads\//.test(id) ? id : `uploads/${folder}/${id}`;
+          const imgUrl = /^https?:|^\/?uploads\//.test(id) ? id.replace(/^\//, "") : `uploads/${folder}/${id}`;
           return { isManifest: true, notManifest: false, imgUrl, ph: `${galActive.name} 시공 ${i + 1}`, id: `gal-m-${s.galCat}-${i}` };
         })
       : Array.from({ length: galN }).map((_, i) => ({
