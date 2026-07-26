@@ -1,24 +1,16 @@
-# Use DecapBridge classic auth (required)
 backend:
   name: git-gateway
   repo: meilanz83-rgb/Chamblinds-site1
   branch: main
-  identity_url: https://auth.decapbridge.com/sites/05e04ccb-a6fc-4e2b-bf58-6f735e3bde8e
+  auth_type: implicit
+  base_url: https://auth.decapbridge.com
+  auth_endpoint: /sites/05e04ccb-a6fc-4e2b-bf58-6f735e3bde8e/pkce
+  auth_token_endpoint: /sites/05e04ccb-a6fc-4e2b-bf58-6f735e3bde8e/token
   gateway_url: https://gateway.decapbridge.com
-  # See who did what (optional)
-  commit_messages:
-    create: Create {{collection}} "{{slug}}" - {{author-name}} <{{author-login}}> via DecapBridge
-    update: Update {{collection}} "{{slug}}" - {{author-name}} <{{author-login}}> via DecapBridge
-    delete: Delete {{collection}} "{{slug}}" - {{author-name}} <{{author-login}}> via DecapBridge
-    uploadMedia: Upload "{{path}}" - {{author-name}} <{{author-login}}> via DecapBridge
-    deleteMedia: Delete "{{path}}" - {{author-name}} <{{author-login}}> via DecapBridge
-    openAuthoring: Message {{message}} - {{author-name}} <{{author-login}}> via DecapBridge
-# Better Decap + Bridge logo (optional)
-logo_url: https://decapbridge.com/decapcms-with-bridge.svg
-# Add site links in Decap CMS (optional)
-site_url: https://sprightly-beijinho-34ded7.netlify.app
-media_folder: "uploads"
-public_folder: "/uploads"
+
+media_folder: "uploads/롤스크린"
+public_folder: "/uploads/롤스크린"
+
 collections:
   - name: "roll_manifest"
     label: "롤스크린 카탈로그 사진"
@@ -75,7 +67,13 @@ collections:
         label: "거실 사진 목록"
         name: "gallery_living_manifest"
         fields:
-          - { label: "사진 목록 (순서대로)", name: "photos", widget: "list", field: { label: "사진", name: "src", widget: "image" } }
+          - label: "사진 목록 (순서대로)"
+            name: "photos"
+            widget: "list"
+            fields:
+              - { label: "사진", name: "src", widget: "image" }
+              - { label: "설치 제품", name: "product", widget: "string", required: false }
+              - { label: "설명", name: "description", widget: "text", required: false }
   - name: "gallery_bedroom_manifest"
     label: "시공 갤러리 - 침실"
     files:
@@ -83,7 +81,13 @@ collections:
         label: "침실 사진 목록"
         name: "gallery_bedroom_manifest"
         fields:
-          - { label: "사진 목록 (순서대로)", name: "photos", widget: "list", field: { label: "사진", name: "src", widget: "image" } }
+          - label: "사진 목록 (순서대로)"
+            name: "photos"
+            widget: "list"
+            fields:
+              - { label: "사진", name: "src", widget: "image" }
+              - { label: "설치 제품", name: "product", widget: "string", required: false }
+              - { label: "설명", name: "description", widget: "text", required: false }
   - name: "gallery_office_manifest"
     label: "시공 갤러리 - 사무실"
     files:
@@ -91,7 +95,13 @@ collections:
         label: "사무실 사진 목록"
         name: "gallery_office_manifest"
         fields:
-          - { label: "사진 목록 (순서대로)", name: "photos", widget: "list", field: { label: "사진", name: "src", widget: "image" } }
+          - label: "사진 목록 (순서대로)"
+            name: "photos"
+            widget: "list"
+            fields:
+              - { label: "사진", name: "src", widget: "image" }
+              - { label: "설치 제품", name: "product", widget: "string", required: false }
+              - { label: "설명", name: "description", widget: "text", required: false }
   - name: "gallery_veranda_manifest"
     label: "시공 갤러리 - 베란다"
     files:
@@ -99,7 +109,13 @@ collections:
         label: "베란다 사진 목록"
         name: "gallery_veranda_manifest"
         fields:
-          - { label: "사진 목록 (순서대로)", name: "photos", widget: "list", field: { label: "사진", name: "src", widget: "image" } }
+          - label: "사진 목록 (순서대로)"
+            name: "photos"
+            widget: "list"
+            fields:
+              - { label: "사진", name: "src", widget: "image" }
+              - { label: "설치 제품", name: "product", widget: "string", required: false }
+              - { label: "설명", name: "description", widget: "text", required: false }
   - name: "gallery_etc_manifest"
     label: "시공 갤러리 - 기타"
     files:
@@ -107,4 +123,10 @@ collections:
         label: "기타 사진 목록"
         name: "gallery_etc_manifest"
         fields:
-          - { label: "사진 목록 (순서대로)", name: "photos", widget: "list", field: { label: "사진", name: "src", widget: "image" } }
+          - label: "사진 목록 (순서대로)"
+            name: "photos"
+            widget: "list"
+            fields:
+              - { label: "사진", name: "src", widget: "image" }
+              - { label: "설치 제품", name: "product", widget: "string", required: false }
+              - { label: "설명", name: "description", widget: "text", required: false }
