@@ -2,7 +2,7 @@ backend:
   name: git-gateway
   repo: meilanz83-rgb/Chamblinds-site1
   branch: main
-  auth_type: pkce
+  auth_type: implicit
   base_url: https://auth.decapbridge.com
   auth_endpoint: /sites/05e04ccb-a6fc-4e2b-bf58-6f735e3bde8e/pkce
   auth_token_endpoint: /sites/05e04ccb-a6fc-4e2b-bf58-6f735e3bde8e/token
