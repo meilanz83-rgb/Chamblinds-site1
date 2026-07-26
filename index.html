@@ -145,7 +145,7 @@
   <!-- showroom + map -->
   <div id="showroom" style="{{ pageInnerWidthStyle }}padding-top:48px;padding-bottom:48px;">
     
-    <div style="font-size: 11px; letter-spacing: .22em; font-weight: 700; color: #E0E2E4; margin-bottom: 14px">SHOWROOM</div><h3 style="margin: 0 0 12px; font-weight: 700; font-size: 24px; color: #002452; letter-spacing: -.02em">오시는 길</h3>
+    <div style="font-size: 11px; letter-spacing: .22em; font-weight: 700; color: #E0E2E4; margin-bottom: 4px">SHOWROOM</div><h3 style="margin: 0 0 12px; font-weight: 700; font-size: 24px; color: #002452; letter-spacing: -.02em">오시는 길</h3>
     <div style="{{ showroomLayoutStyle }}">
       <div style="{{ showroomInfoWidthStyle }}display:flex;flex-direction:column;gap:9px;">
         <div style="display:flex;gap:12px;">
@@ -455,26 +455,26 @@
           <sc-if value="{{ bookReady }}" hint-placeholder-val="{{ true }}">
             <div style="width:100%;display:flex;flex-direction:column;gap:14px;">
               <sc-for list="{{ bookPhotoItems }}" as="ph" hint-placeholder-count="1">
-                <div draggable="{{ ph.canDrag }}" onDragStart="{{ ph.onDragStart }}" onDragOver="{{ ph.onDragOver }}" onDrop="{{ ph.onDrop }}" style="position:relative;width:100%;aspect-ratio:4/3;border-radius:0;overflow:hidden;background:#fff;flex:none;">
+                <div draggable="{{ ph.canDrag }}" onDragStart="{{ ph.onDragStart }}" onDragOver="{{ ph.onDragOver }}" onDrop="{{ ph.onDrop }}" onClick="{{ ph.onZoom }}" style="position:relative;width:100%;aspect-ratio:4/3;border-radius:0;overflow:hidden;background:#fff;flex:none;cursor:pointer;">
                   
                   <span style="position:absolute;top:8px;left:8px;background:rgba(0,36,82,.72);color:#fff;font-size:10.5px;font-weight:700;padding:3px 8px;border-radius:10px;pointer-events:none;">{{ ph.num }}</span>
                   <sc-if value="{{ ph.canDrag }}" hint-placeholder-val="{{ false }}">
                     <span style="position:absolute;top:8px;right:8px;width:28px;height:28px;border-radius:50%;background:rgba(255,255,255,.92);display:flex;align-items:center;justify-content:center;font-size:14px;box-shadow:0 4px 10px rgba(0,36,82,.2);cursor:grab;">⠿</span>
                   </sc-if>
-                  <span onClick="{{ ph.onZoom }}" style="position:absolute;bottom:8px;right:8px;width:38px;height:38px;border-radius:50%;background:rgba(255,255,255,.92);display:flex;align-items:center;justify-content:center;font-size:16px;box-shadow:0 4px 10px rgba(0,36,82,.2);cursor:pointer;">🔍</span>
+                  <span style="position:absolute;bottom:8px;right:8px;width:38px;height:38px;border-radius:50%;background:rgba(255,255,255,.92);display:flex;align-items:center;justify-content:center;font-size:16px;box-shadow:0 4px 10px rgba(0,36,82,.2);pointer-events:none;">🔍</span>
                 <sc-if value="{{ ph.isManifest }}" hint-placeholder-val="{{ false }}">
                   <sc-if value="{{ ph.imgUrl }}" hint-placeholder-val="{{ false }}">
                     <img src="{{ ph.imgUrl }}" alt="{{ ph.ph }}" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block;">
                   </sc-if>
                 </sc-if>
                 <sc-if value="{{ ph.notManifest }}" hint-placeholder-val="{{ true }}">
-                  <x-import component-from-global-scope="image-slot" from="./image-slot.js" id="{{ ph.id }}" shape="rect" fit="cover" placeholder="{{ ph.ph }}" hint-size="100%,100%" style="position: absolute; inset: 0; width: 100%; height: 100%; display: block;"></x-import>
+                  
                 </sc-if>
                 </div>
               </sc-for>
             </div>
 
-            <p style="margin:16px 0 0;font-size:11.5px;color:#8a9099;line-height:1.6;text-align:center;max-width:260px;">사진을 올리면 순서대로 아래에 쌓여요. 사진의 🔍를 눌러 확대하고, 손가락(핀치)으로 질감을 확인해 보세요.</p>
+            <p style="margin:16px 0 0;font-size:11.5px;color:#8a9099;line-height:1.6;text-align:center;max-width:260px;">사진을 클릭하면 크게 확대하실 수 있습니다</p>
             <sc-if value="{{ showAddBookPage }}" hint-placeholder-val="{{ false }}">
               <span onClick="{{ addBookPage }}" style="display:block;margin-top:10px;font-size:9.5px;color:#c9ccd1;letter-spacing:.02em;cursor:pointer;">+ 사진 추가하기</span>
             </sc-if>
@@ -545,9 +545,9 @@
         <div style="padding:20px;">
           <div style="display:flex;align-items:baseline;justify-content:space-between;margin-bottom:14px;">
             <h3 style="margin:0;font-weight:700;font-size:20px;color:#002452;letter-spacing:-.02em;">{{ galCatName }}</h3>
-            <span style="font-size:11px;color:#acacac;letter-spacing:.06em;">{{ galCountLabel }}</span>
+            
           </div>
-          <p style="margin:0 0 16px;font-weight:300;font-size:12px;color:#8a9099;line-height:1.6;">각 칸을 눌러(또는 사진을 끌어다 놓아) 시공 사진을 올릴 수 있어요. 카테고리마다 여러 장 추가할 수 있습니다.</p>
+          <p style="margin:0 0 16px;font-weight:300;font-size:12px;color:#8a9099;line-height:1.6;"><br></p>
 
           <div style="{{ galleryUploadGridStyle }}">
             <sc-for list="{{ gallerySlots }}" as="slot" hint-placeholder-count="6">
@@ -987,7 +987,7 @@ class Component extends DCLogic {
     const catalogGridStyle = `display:grid;grid-template-columns:${isDesktop ? "repeat(4,1fr)" : "1fr 1fr"};gap:${isDesktop ? "24px 20px" : "20px 12px"};`;
     const swatchGridStyle = `display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:${isDesktop ? "32px" : "20px"};max-width:1020px;margin:0 auto;justify-content:center;`;
     const bookTreeLayoutStyle = isDesktop ? "display:flex;flex-wrap:wrap;gap:6px;" : "display:flex;flex-direction:column;";
-    const galleryUploadGridStyle = `display:grid;grid-template-columns:${isDesktop ? "repeat(4,1fr)" : "1fr 1fr"};gap:10px;`;
+    const galleryUploadGridStyle = `display:grid;grid-template-columns:${isDesktop ? "repeat(4,1fr)" : "1fr"};gap:${isDesktop ? "10px" : "20px"};`;
     const overlayShellStyle = isDesktop
       ? "position:fixed;inset:0;z-index:40;overflow-y:auto;overflow-x:hidden;background:rgba(13,21,38,.6);display:flex;justify-content:center;padding:48px 20px;"
       : "position:fixed;inset:0;z-index:40;overflow-y:auto;overflow-x:hidden;background:#fff;";
@@ -1084,7 +1084,7 @@ class Component extends DCLogic {
       swatchCountLabel: `${swatchCards.length}개 컬러`,
       isAdmin: s.isAdmin,
       isNotAdmin: !s.isAdmin,
-      adminLinkLabel: s.isAdmin ? "관리자 모드 종료" : "관리자이신가요?",
+      adminLinkLabel: s.isAdmin ? "관리자 모드 종료" : "",
       toggleAdmin: () => {
         if (this.state.isAdmin) { this.setState({ isAdmin: false }); return; }
         const pw = window.prompt("관리자 비밀번호를 입력하세요.");
