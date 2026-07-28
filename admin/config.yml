@@ -2,7 +2,7 @@ backend:
   name: git-gateway
   repo: meilanz83-rgb/Chamblinds-site1
   branch: main
-  auth_type: pkce
+  auth_type: implicit
   base_url: https://auth.decapbridge.com
   auth_endpoint: /sites/05e04ccb-a6fc-4e2b-bf58-6f735e3bde8e/pkce
   auth_token_endpoint: /sites/05e04ccb-a6fc-4e2b-bf58-6f735e3bde8e/token
@@ -60,73 +60,67 @@ collections:
         name: "curtain_manifest"
         fields:
           - { label: "사진 목록 (순서대로)", name: "photos", widget: "list", field: { label: "사진", name: "src", widget: "image" } }
-  - name: "gallery_living_manifest"
-    label: "시공 갤러리 - 거실"
+  - name: "gallery_pension_manifest"
+    label: "시공 갤러리 - 펜션"
     files:
-      - file: "uploads/gallery-living-manifest.json"
-        label: "거실 사진 목록"
-        name: "gallery_living_manifest"
+      - file: "uploads/gallery-pension-manifest.json"
+        label: "펜션 사진 목록"
+        name: "gallery_pension_manifest"
         fields:
           - label: "사진 목록 (순서대로)"
             name: "photos"
             widget: "list"
             fields:
-              - { label: "사진", name: "src", widget: "image" }
+              - { label: "사진", name: "src", widget: "image", required: true }
+              - { label: "제목", name: "title", widget: "string", required: false }
               - { label: "설치 제품", name: "product", widget: "string", required: false }
-              - { label: "설명", name: "description", widget: "text", required: false }
-  - name: "gallery_bedroom_manifest"
-    label: "시공 갤러리 - 침실"
+              - { label: "요약 (목록에 짧게 보일 설명)", name: "description", widget: "text", required: false }
+              - { label: "본문 (사진 아래 블로그처럼 자세히 쓰는 글)", name: "content", widget: "text", required: false }
+  - name: "gallery_apartment_manifest"
+    label: "시공 갤러리 - 아파트"
     files:
-      - file: "uploads/gallery-bedroom-manifest.json"
-        label: "침실 사진 목록"
-        name: "gallery_bedroom_manifest"
+      - file: "uploads/gallery-apartment-manifest.json"
+        label: "아파트 사진 목록"
+        name: "gallery_apartment_manifest"
         fields:
           - label: "사진 목록 (순서대로)"
             name: "photos"
             widget: "list"
             fields:
-              - { label: "사진", name: "src", widget: "image" }
+              - { label: "사진", name: "src", widget: "image", required: true }
+              - { label: "제목", name: "title", widget: "string", required: false }
               - { label: "설치 제품", name: "product", widget: "string", required: false }
-              - { label: "설명", name: "description", widget: "text", required: false }
-  - name: "gallery_office_manifest"
-    label: "시공 갤러리 - 사무실"
+              - { label: "요약 (목록에 짧게 보일 설명)", name: "description", widget: "text", required: false }
+              - { label: "본문 (사진 아래 블로그처럼 자세히 쓰는 글)", name: "content", widget: "text", required: false }
+  - name: "gallery_countryhouse_manifest"
+    label: "시공 갤러리 - 전원주택"
     files:
-      - file: "uploads/gallery-office-manifest.json"
-        label: "사무실 사진 목록"
-        name: "gallery_office_manifest"
+      - file: "uploads/gallery-countryhouse-manifest.json"
+        label: "전원주택 사진 목록"
+        name: "gallery_countryhouse_manifest"
         fields:
           - label: "사진 목록 (순서대로)"
             name: "photos"
             widget: "list"
             fields:
-              - { label: "사진", name: "src", widget: "image" }
+              - { label: "사진", name: "src", widget: "image", required: true }
+              - { label: "제목", name: "title", widget: "string", required: false }
               - { label: "설치 제품", name: "product", widget: "string", required: false }
-              - { label: "설명", name: "description", widget: "text", required: false }
-  - name: "gallery_veranda_manifest"
-    label: "시공 갤러리 - 베란다"
+              - { label: "요약 (목록에 짧게 보일 설명)", name: "description", widget: "text", required: false }
+              - { label: "본문 (사진 아래 블로그처럼 자세히 쓰는 글)", name: "content", widget: "text", required: false }
+  - name: "gallery_cafe_manifest"
+    label: "시공 갤러리 - 카페"
     files:
-      - file: "uploads/gallery-veranda-manifest.json"
-        label: "베란다 사진 목록"
-        name: "gallery_veranda_manifest"
+      - file: "uploads/gallery-cafe-manifest.json"
+        label: "카페 사진 목록"
+        name: "gallery_cafe_manifest"
         fields:
           - label: "사진 목록 (순서대로)"
             name: "photos"
             widget: "list"
             fields:
-              - { label: "사진", name: "src", widget: "image" }
+              - { label: "사진", name: "src", widget: "image", required: true }
+              - { label: "제목", name: "title", widget: "string", required: false }
               - { label: "설치 제품", name: "product", widget: "string", required: false }
-              - { label: "설명", name: "description", widget: "text", required: false }
-  - name: "gallery_etc_manifest"
-    label: "시공 갤러리 - 기타"
-    files:
-      - file: "uploads/gallery-etc-manifest.json"
-        label: "기타 사진 목록"
-        name: "gallery_etc_manifest"
-        fields:
-          - label: "사진 목록 (순서대로)"
-            name: "photos"
-            widget: "list"
-            fields:
-              - { label: "사진", name: "src", widget: "image" }
-              - { label: "설치 제품", name: "product", widget: "string", required: false }
-              - { label: "설명", name: "description", widget: "text", required: false }
+              - { label: "요약 (목록에 짧게 보일 설명)", name: "description", widget: "text", required: false }
+              - { label: "본문 (사진 아래 블로그처럼 자세히 쓰는 글)", name: "content", widget: "text", required: false }
