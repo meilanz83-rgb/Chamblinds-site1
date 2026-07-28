@@ -135,7 +135,7 @@
       <span onClick="{{ openGallery }}" style="font-size:11px;color:#8a9099;align-self:flex-end;letter-spacing:.08em;cursor:pointer;">VIEW ALL →</span>
     </div>
     <div style="{{ galleryGridStyle }}">
-      <sc-for list="{{ homeGalCards }}" as="g" hint-placeholder-count="4">
+      <sc-for list="{{ homeGalCards }}" as="g" hint-placeholder-count="5">
         <div onClick="{{ g.onClick }}" style="cursor:pointer;">
           <div style="aspect-ratio:4/3;border-radius:3px;overflow:hidden;position:relative;">
             <sc-if value="{{ g.hasPhoto }}" hint-placeholder-val="{{ false }}">
@@ -664,8 +664,8 @@ class Component extends DCLogic {
     justSent: false,
     showGallery: false,
     galCat: "pension",
-    galCounts: { pension: 0, apartment: 0, countryhouse: 0, cafe: 0 },
-    galVisible: { pension: 6, apartment: 6, countryhouse: 6, cafe: 6 },
+    galCounts: { pension: 0, apartment: 0, countryhouse: 0, cafe: 0, office: 0 },
+    galVisible: { pension: 6, apartment: 6, countryhouse: 6, cafe: 6, office: 6 },
     showGalPost: false,
     galPostCat: "",
     galPostIdx: 0,
@@ -719,7 +719,7 @@ class Component extends DCLogic {
   };
   swatchFolder = { roll: "롤스크린", combi: "콤비블라인드" };
   bookFolder = { roll: "롤스크린", combi: "콤비블라인드", wood: "우드블라인드", honeycomb: "허니콤쉐이드", vertical: "버티컬", curtain: "커튼" };
-  galFolder = { pension: "펜션", apartment: "아파트", countryhouse: "전원주택", cafe: "카페" };
+  galFolder = { pension: "펜션", apartment: "아파트", countryhouse: "전원주택", cafe: "카페", office: "사무실" };
   bookCategories = [
     { key: "roll", name: "롤스크린" },
     { key: "combi", name: "콤비블라인드" },
@@ -733,6 +733,7 @@ class Component extends DCLogic {
     { key: "apartment", name: "아파트" },
     { key: "countryhouse", name: "전원주택" },
     { key: "cafe", name: "카페" },
+    { key: "office", name: "사무실" },
   ];
 
   componentDidMount() {
