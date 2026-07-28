@@ -636,6 +636,20 @@
           <sc-if value="{{ galPostHasProduct }}" hint-placeholder-val="{{ false }}">
             <span style="display:inline-block;font-size:8.5px;letter-spacing:.14em;font-weight:700;color:#ff4600;box-shadow:inset 0 0 0 1px #ffd0c0;padding:2px 6px;border-radius:2px;margin-bottom:14px;">{{ galPostProduct }}</span>
           </sc-if>
+          <sc-if value="{{ galPostHasBlocks }}" hint-placeholder-val="{{ false }}">
+            <div style="display:flex;flex-direction:column;gap:16px;">
+              <sc-for list="{{ galPostBlocks }}" as="b" hint-placeholder-count="3">
+                <sc-if value="{{ b.isText }}" hint-placeholder-val="{{ true }}">
+                  <p style="margin:0;font-weight:300;font-size:13.5px;line-height:1.75;color:#53595f;white-space:pre-line;">{{ b.text }}</p>
+                </sc-if>
+                <sc-if value="{{ b.isImage }}" hint-placeholder-val="{{ false }}">
+                  <div style="width:100%;border-radius:6px;overflow:hidden;">
+                    <img src="{{ b.src }}" alt="{{ galPostTitle }}" style="width:100%;height:auto;display:block;">
+                  </div>
+                </sc-if>
+              </sc-for>
+            </div>
+          </sc-if>
           <sc-if value="{{ galPostHasBody }}" hint-placeholder-val="{{ false }}">
             <p style="margin:0;font-weight:300;font-size:13.5px;line-height:1.75;color:#53595f;white-space:pre-line;">{{ galPostBody }}</p>
           </sc-if>
@@ -1074,14 +1088,31 @@ class Component extends DCLogic {
 
     const galPostCatObj = this.galCategories.find((c) => c.key === s.galPostCat) || this.galCategories[0];
     const galPostManifest = s.galManifests[s.galPostCat] || [];
+    const resolveGalImg = (folder, raw) =>
+      /^https?:|^\/?uploads\//.test(raw || "") ? (raw || "").replace(/^\//, "") : `uploads/${folder}/${raw || ""}`;
     const galPostList = galPostManifest.map((item) => {
       const folder = this.galFolder[s.galPostCat];
       const id = typeof item === "string" ? item : item.src;
-      const imgUrl = /^https?:|^\/?uploads\//.test(id) ? id.replace(/^\//, "") : `uploads/${folder}/${id}`;
+      const imgUrl = resolveGalImg(folder, id);
       const title = typeof item === "object" && item.title ? item.title : "";
       const product = typeof item === "object" && item.product ? item.product : "";
       const content = typeof item === "object" && item.content ? item.content : "";
-      return { imgUrl, title, product, content };
+      const rawBody = typeof item === "object" && Array.isArray(item.body) ? item.body : [];
+      const blocks = rawBody
+        .map((b) => {
+          if (!b) return null;
+          if (b.type === "image") {
+            const src = resolveGalImg(folder, b.value);
+            return src ? { isText: false, isImage: true, text: "", src } : null;
+          }
+          if (b.type === "text") {
+            const text = b.value || "";
+            return text ? { isText: true, isImage: false, text, src: "" } : null;
+          }
+          return null;
+        })
+        .filter(Boolean);
+      return { imgUrl, title, product, content, blocks, hasBlocks: blocks.length > 0 };
     });
     const galPostActive = galPostList[s.galPostIdx] || null;
     const galPostHasPrev = s.galPostIdx > 0;
@@ -1241,7 +1272,9 @@ class Component extends DCLogic {
       galPostTitle: galPostActive ? (galPostActive.title || `${galPostCatObj.name} 시공 사례`) : "",
       galPostHasProduct: !!(galPostActive && galPostActive.product),
       galPostProduct: galPostActive ? galPostActive.product : "",
-      galPostHasBody: !!(galPostActive && galPostActive.content),
+      galPostHasBlocks: !!(galPostActive && galPostActive.hasBlocks),
+      galPostBlocks: galPostActive ? galPostActive.blocks : [],
+      galPostHasBody: !!(galPostActive && !galPostActive.hasBlocks && galPostActive.content),
       galPostBody: galPostActive ? galPostActive.content : "",
       galPostHasPrev,
       galPostHasNext,
