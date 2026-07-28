@@ -140,3 +140,19 @@ collections:
               - { label: "설치 제품", name: "product", widget: "string", required: false }
               - { label: "요약 (목록에 짧게 보일 설명)", name: "description", widget: "text", required: false }
               - { label: "본문 (사진 아래 블로그처럼 자세히 쓰는 글)", name: "content", widget: "text", required: false }
+  - name: "gallery_office_manifest"
+    label: "시공 갤러리 - 사무실"
+    files:
+      - file: "uploads/gallery-office-manifest.json"
+        label: "사무실 사진 목록"
+        name: "gallery_office_manifest"
+        fields:
+          - label: "사진 목록 (순서대로)"
+            name: "photos"
+            widget: "list"
+            fields:
+              - { label: "사진", name: "src", widget: "image", required: true }
+              - { label: "제목", name: "title", widget: "string", required: false }
+              - { label: "설치 제품", name: "product", widget: "string", required: false }
+              - { label: "요약 (목록에 짧게 보일 설명)", name: "description", widget: "text", required: false }
+              - { label: "본문 (사진 아래 블로그처럼 자세히 쓰는 글)", name: "content", widget: "text", required: false }
