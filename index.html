@@ -129,22 +129,34 @@
   <div id="gallery" style="{{ pageInnerWidthStyle }}padding-top:48px;padding-bottom:48px;">
     <div style="display:flex;align-items:baseline;justify-content:space-between;margin-bottom:18px;">
       <div>
-        
+
         <h3 style="margin:0;font-weight:700;font-size:19px;color:#002452;letter-spacing:-.02em;">시공 갤러리</h3>
       </div>
       <span onClick="{{ openGallery }}" style="font-size:11px;color:#8a9099;align-self:flex-end;letter-spacing:.08em;cursor:pointer;">VIEW ALL →</span>
     </div>
     <div style="{{ galleryGridStyle }}">
-      <div onClick="{{ openGallery }}" style="aspect-ratio:4/3;border-radius:3px;overflow:hidden;position:relative;cursor:pointer;"><img src="uploads/gallery-living.jpg" alt="거실 시공" style="width:100%;height:100%;object-fit:cover;display:block;"><span style="position:absolute;bottom:8px;left:9px;font-size:10.5px;font-weight:600;color:#fff;text-shadow:0 1px 4px rgba(0,0,0,.6);">거실</span></div>
-      <div onClick="{{ openGallery }}" style="aspect-ratio:4/3;border-radius:3px;overflow:hidden;position:relative;cursor:pointer;"><img src="uploads/combi.jpg" alt="회의실 시공" style="width:100%;height:100%;object-fit:cover;display:block;"><span style="position:absolute;bottom:8px;left:9px;font-size:10.5px;font-weight:600;color:#fff;text-shadow:0 1px 4px rgba(0,0,0,.6);">회의실</span></div>
-      <div onClick="{{ openGallery }}" style="aspect-ratio:4/3;border-radius:3px;overflow:hidden;position:relative;cursor:pointer;"><img src="uploads/gallery-office.jpg" alt="사무실 시공" style="width:100%;height:100%;object-fit:cover;display:block;"><span style="position:absolute;bottom:8px;left:9px;font-size:10.5px;font-weight:600;color:#fff;text-shadow:0 1px 4px rgba(0,0,0,.6);">사무실</span></div>
-      <div onClick="{{ openGallery }}" style="aspect-ratio:4/3;border-radius:3px;overflow:hidden;position:relative;cursor:pointer;"><img src="uploads/gallery-lobby.jpg" alt="로비 시공" style="width:100%;height:100%;object-fit:cover;display:block;"><span style="position:absolute;bottom:8px;left:9px;font-size:10.5px;font-weight:600;color:#fff;text-shadow:0 1px 4px rgba(0,0,0,.6);">로비</span></div>
+      <sc-for list="{{ homeGalCards }}" as="g" hint-placeholder-count="4">
+        <div onClick="{{ g.onClick }}" style="cursor:pointer;">
+          <div style="aspect-ratio:4/3;border-radius:3px;overflow:hidden;position:relative;">
+            <sc-if value="{{ g.hasPhoto }}" hint-placeholder-val="{{ false }}">
+              <img src="{{ g.imgUrl }}" alt="{{ g.name }} 시공" style="width:100%;height:100%;object-fit:cover;display:block;">
+            </sc-if>
+            <sc-if value="{{ g.hasNoPhoto }}" hint-placeholder-val="{{ true }}">
+              <div style="width:100%;height:100%;background:#f2f3f5;display:flex;align-items:center;justify-content:center;"><span style="font-size:20px;">🖼️</span></div>
+            </sc-if>
+          </div>
+          <div style="margin-top:8px;font-size:11.5px;font-weight:700;color:#002452;letter-spacing:-.01em;">{{ g.name }}</div>
+          <sc-if value="{{ g.hasExcerpt }}" hint-placeholder-val="{{ false }}">
+            <p style="margin:3px 0 0;font-weight:300;font-size:11px;line-height:1.5;color:#8a9099;">{{ g.excerpt }}</p>
+          </sc-if>
+        </div>
+      </sc-for>
     </div>
   </div>
 
   <!-- showroom + map -->
   <div id="showroom" style="{{ pageInnerWidthStyle }}padding-top:48px;padding-bottom:48px;">
-    
+
     <div style="font-size: 11px; letter-spacing: .22em; font-weight: 700; color: #E0E2E4; margin-bottom: 4px">SHOWROOM</div><h3 style="margin: 0 0 12px; font-weight: 700; font-size: 24px; color: #002452; letter-spacing: -.02em">오시는 길</h3>
     <div style="{{ showroomLayoutStyle }}">
       <div style="{{ showroomInfoWidthStyle }}display:flex;flex-direction:column;gap:9px;">
@@ -342,7 +354,6 @@
               </div>
               <span style="font-size:11px;color:#acacac;letter-spacing:.06em;">{{ postCountLabel }}</span>
             </div>
-
             <sc-if value="{{ noPosts }}" hint-placeholder-val="{{ true }}">
               <div style="padding:26px 16px;border-radius:4px;background:#f6f8f9;text-align:center;font-weight:300;font-size:12.5px;color:#8a9099;line-height:1.6;">보낸 문의가 없습니다.<br>문의글을 보내면 이 곳에 기록됩니다.</div>
             </sc-if>
@@ -461,8 +472,8 @@
                 </div>
               </sc-if>
               <sc-for list="{{ bookPhotoItemsPage }}" as="ph" hint-placeholder-count="1">
-                <div draggable="{{ ph.canDrag }}" onDragStart="{{ ph.onDragStart }}" onDragOver="{{ ph.onDragOver }}" onDrop="{{ ph.onDrop }}" onClick="{{ ph.onZoom }}" style="position:relative;width:100%;aspect-ratio:4/3;border-radius:0;overflow:hidden;background:#f0f1f3;flex:none;cursor:pointer;">
-                  
+                <div draggable="{{ ph.canDrag }}" onDragStart="{{ ph.onDragStart }}" onDragOver="{{ ph.onDragOver }}" onDrop="{{ ph.onDrop }}" onClick="{{ ph.onZoom }}" style="position:relative;width:100%;aspect-ratio:4/3;border-radius:0;overflow:hidden;background:#fff;flex:none;cursor:pointer;">
+
                   <span style="position:absolute;top:8px;left:8px;background:rgba(0,36,82,.72);color:#fff;font-size:10.5px;font-weight:700;padding:3px 8px;border-radius:10px;pointer-events:none;">{{ ph.num }}</span>
                   <sc-if value="{{ ph.canDrag }}" hint-placeholder-val="{{ false }}">
                     <span style="position:absolute;top:8px;right:8px;width:28px;height:28px;border-radius:50%;background:rgba(255,255,255,.92);display:flex;align-items:center;justify-content:center;font-size:14px;box-shadow:0 4px 10px rgba(0,36,82,.2);cursor:grab;">⠿</span>
@@ -470,11 +481,11 @@
                   <span style="position:absolute;bottom:8px;right:8px;width:38px;height:38px;border-radius:50%;background:rgba(255,255,255,.92);display:flex;align-items:center;justify-content:center;font-size:16px;box-shadow:0 4px 10px rgba(0,36,82,.2);pointer-events:none;">🔍</span>
                 <sc-if value="{{ ph.isManifest }}" hint-placeholder-val="{{ false }}">
                   <sc-if value="{{ ph.imgUrl }}" hint-placeholder-val="{{ false }}">
-                    <img src="{{ ph.imgUrl }}" alt="{{ ph.ph }}" style="position:absolute;inset:0;width:100%;height:100%;object-fit:contain;display:block;">
+                    <img src="{{ ph.imgUrl }}" alt="{{ ph.ph }}" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block;">
                   </sc-if>
                 </sc-if>
                 <sc-if value="{{ ph.notManifest }}" hint-placeholder-val="{{ true }}">
-                  
+
                 </sc-if>
                 </div>
               </sc-for>
@@ -491,7 +502,7 @@
           </sc-if>
         </div>
 
-        
+
       </div>
     </div>
   </sc-if>
@@ -554,11 +565,11 @@
         <div style="padding:20px;">
           <div style="display:flex;align-items:baseline;justify-content:space-between;margin-bottom:14px;">
             <h3 style="margin:0;font-weight:700;font-size:20px;color:#002452;letter-spacing:-.02em;">{{ galCatName }}</h3>
-            
-          </div>
-          
 
-          
+          </div>
+
+
+
 
           <sc-if value="{{ showAddGalPhotos }}" hint-placeholder-val="{{ false }}">
             <span onClick="{{ addGalPhotos }}" style="display:flex;align-items:center;justify-content:center;gap:6px;margin-top:16px;font-size:13px;font-weight:600;color:#002452;background:#fff;box-shadow:inset 0 0 0 1px #002452;padding:14px;border-radius:3px;cursor:pointer;">+ 사진 추가하기</span>
@@ -574,7 +585,7 @@
             <sc-for list="{{ gallerySlotsPage }}" as="slot" hint-placeholder-count="6">
               <sc-if value="{{ slot.isManifest }}" hint-placeholder-val="{{ false }}">
                 <sc-if value="{{ slot.imgUrl }}" hint-placeholder-val="{{ false }}">
-                  <div>
+                  <div onClick="{{ slot.onOpenPost }}" style="cursor:pointer;">
                     <div style="width:100%;aspect-ratio:4/3;border-radius:4px;overflow:hidden;"><img src="{{ slot.imgUrl }}" alt="{{ slot.ph }}" style="width:100%;height:100%;object-fit:cover;display:block;"></div>
                     <sc-if value="{{ slot.hasCaption }}" hint-placeholder-val="{{ false }}">
                       <div style="margin-top:8px;">
@@ -603,6 +614,46 @@
     </div>
   </sc-if>
 
+  <!-- =================== GALLERY POST OVERLAY =================== -->
+  <sc-if value="{{ showGalPost }}" hint-placeholder-val="{{ false }}">
+    <div class="noscroll" style="{{ overlayShellStyle }}">
+      <div style="{{ overlayPanelStyle }}">
+
+        <div style="position:sticky;top:0;z-index:10;display:flex;align-items:center;gap:12px;padding:16px 20px;background:rgba(255,255,255,.94);backdrop-filter:blur(12px);border-bottom:1px solid #eeeeee;">
+          <span onClick="{{ closeGalPost }}" style="font-size:20px;color:#002452;cursor:pointer;line-height:1;width:24px;">←</span>
+          <div style="flex:1;">
+            <div style="font-size:9.5px;letter-spacing:.24em;font-weight:700;color:#8a9099;">GALLERY · {{ galPostCatName }}</div>
+            <div style="font-weight:700;font-size:16px;color:#002452;letter-spacing:-.02em;">{{ galPostTitle }}</div>
+          </div>
+        </div>
+
+        <div style="width:100%;aspect-ratio:4/3;overflow:hidden;background:#e2e2e2;">
+          <img src="{{ galPostImg }}" alt="{{ galPostTitle }}" style="width:100%;height:100%;object-fit:cover;display:block;">
+        </div>
+
+        <div style="padding:22px 20px 32px;">
+          <h2 style="margin:0 0 8px;font-weight:700;font-size:19px;color:#002452;letter-spacing:-.02em;">{{ galPostTitle }}</h2>
+          <sc-if value="{{ galPostHasProduct }}" hint-placeholder-val="{{ false }}">
+            <span style="display:inline-block;font-size:8.5px;letter-spacing:.14em;font-weight:700;color:#ff4600;box-shadow:inset 0 0 0 1px #ffd0c0;padding:2px 6px;border-radius:2px;margin-bottom:14px;">{{ galPostProduct }}</span>
+          </sc-if>
+          <sc-if value="{{ galPostHasBody }}" hint-placeholder-val="{{ false }}">
+            <p style="margin:0;font-weight:300;font-size:13.5px;line-height:1.75;color:#53595f;white-space:pre-line;">{{ galPostBody }}</p>
+          </sc-if>
+
+          <div style="display:flex;align-items:center;justify-content:space-between;margin-top:28px;padding-top:18px;border-top:1px solid #eeeeee;">
+            <sc-if value="{{ galPostHasPrev }}" hint-placeholder-val="{{ false }}">
+              <span onClick="{{ galPostPrev }}" style="font-size:12.5px;font-weight:600;color:#002452;cursor:pointer;">← 이전</span>
+            </sc-if>
+            <sc-if value="{{ galPostHasNext }}" hint-placeholder-val="{{ false }}">
+              <span onClick="{{ galPostNext }}" style="font-size:12.5px;font-weight:600;color:#002452;cursor:pointer;margin-left:auto;">다음 →</span>
+            </sc-if>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </sc-if>
+
 </div>
 </x-dc>
 <script type="text/x-dc" data-dc-script>
@@ -612,9 +663,12 @@ class Component extends DCLogic {
     showInquiry: false,
     justSent: false,
     showGallery: false,
-    galCat: "living",
-    galCounts: { living: 0, bedroom: 0, office: 0, veranda: 0, etc: 0 },
-    galVisible: { living: 6, bedroom: 6, office: 6, veranda: 6, etc: 6 },
+    galCat: "pension",
+    galCounts: { pension: 0, apartment: 0, countryhouse: 0, cafe: 0 },
+    galVisible: { pension: 6, apartment: 6, countryhouse: 6, cafe: 6 },
+    showGalPost: false,
+    galPostCat: "",
+    galPostIdx: 0,
     catFilter: "all",
     selGroup: { roll: 0, combi: 0 },
     isAdmin: false,
@@ -642,7 +696,6 @@ class Component extends DCLogic {
     posts: [],
     triedSubmit: false,
   };
-
   products = [
     { no: "01", name: "롤스크린",     en: "ROLL SCREEN", tag: "BASIC", img: "uploads/roll-screen.jpg", desc: "군더더기 없는 일자형. 어떤 공간에도 어울리는 기본." },
     { no: "02", name: "콤비 블라인드", en: "COMBI",       tag: "BEST",  img: "uploads/combi.jpg", desc: "이중 원단으로 빛을 자유롭게 조절." },
@@ -666,7 +719,7 @@ class Component extends DCLogic {
   };
   swatchFolder = { roll: "롤스크린", combi: "콤비블라인드" };
   bookFolder = { roll: "롤스크린", combi: "콤비블라인드", wood: "우드블라인드", honeycomb: "허니콤쉐이드", vertical: "버티컬", curtain: "커튼" };
-  galFolder = { living: "거실", bedroom: "침실", office: "사무실", veranda: "베란다", etc: "기타" };
+  galFolder = { pension: "펜션", apartment: "아파트", countryhouse: "전원주택", cafe: "카페" };
   bookCategories = [
     { key: "roll", name: "롤스크린" },
     { key: "combi", name: "콤비블라인드" },
@@ -676,11 +729,10 @@ class Component extends DCLogic {
     { key: "curtain", name: "커튼" },
   ];
   galCategories = [
-    { key: "living", name: "거실" },
-    { key: "bedroom", name: "침실" },
-    { key: "office", name: "사무실" },
-    { key: "veranda", name: "베란다" },
-    { key: "etc", name: "기타" },
+    { key: "pension", name: "펜션" },
+    { key: "apartment", name: "아파트" },
+    { key: "countryhouse", name: "전원주택" },
+    { key: "cafe", name: "카페" },
   ];
 
   componentDidMount() {
@@ -984,7 +1036,7 @@ class Component extends DCLogic {
           const product = typeof item === "object" && item.product ? item.product : "";
           const description = typeof item === "object" && item.description ? item.description : "";
           const imgUrl = /^https?:|^\/?uploads\//.test(id) ? id.replace(/^\//, "") : `uploads/${folder}/${id}`;
-          return { isManifest: true, notManifest: false, imgUrl, ph: `${galActive.name} 시공 ${i + 1}`, id: `gal-m-${s.galCat}-${i}`, product, description, hasCaption: !!(product || description) };
+          return { isManifest: true, notManifest: false, imgUrl, ph: `${galActive.name} 시공 ${i + 1}`, id: `gal-m-${s.galCat}-${i}`, product, description, hasCaption: !!(product || description), onOpenPost: () => this.setState({ showGalPost: true, galPostCat: s.galCat, galPostIdx: i }) };
         })
       : Array.from({ length: galN }).map((_, i) => ({
           isManifest: false,
@@ -993,6 +1045,46 @@ class Component extends DCLogic {
           id: `gal-${s.galCat}-${i}`,
           ph: `${galActive.name} 시공 ${i + 1}`,
         }));
+
+    const homeGalCards = this.galCategories.map((c) => {
+      const manifest = s.galManifests[c.key];
+      const first = Array.isArray(manifest) && manifest.length ? manifest[0] : null;
+      const folder = this.galFolder[c.key];
+      let imgUrl = "";
+      if (first) {
+        const id = typeof first === "string" ? first : first.src;
+        imgUrl = /^https?:|^\/?uploads\//.test(id) ? id.replace(/^\//, "") : `uploads/${folder}/${id}`;
+      }
+      const excerpt = first && typeof first === "object" ? (first.description || first.title || "") : "";
+      return {
+        key: c.key,
+        name: c.name,
+        hasPhoto: !!imgUrl,
+        hasNoPhoto: !imgUrl,
+        imgUrl,
+        hasExcerpt: !!excerpt,
+        excerpt,
+        onClick: () =>
+          first
+            ? this.setState({ showGalPost: true, galPostCat: c.key, galPostIdx: 0 })
+            : this.setState({ showGallery: true, galCat: c.key }),
+      };
+    });
+
+    const galPostCatObj = this.galCategories.find((c) => c.key === s.galPostCat) || this.galCategories[0];
+    const galPostManifest = s.galManifests[s.galPostCat] || [];
+    const galPostList = galPostManifest.map((item) => {
+      const folder = this.galFolder[s.galPostCat];
+      const id = typeof item === "string" ? item : item.src;
+      const imgUrl = /^https?:|^\/?uploads\//.test(id) ? id.replace(/^\//, "") : `uploads/${folder}/${id}`;
+      const title = typeof item === "object" && item.title ? item.title : "";
+      const product = typeof item === "object" && item.product ? item.product : "";
+      const content = typeof item === "object" && item.content ? item.content : "";
+      return { imgUrl, title, product, content };
+    });
+    const galPostActive = galPostList[s.galPostIdx] || null;
+    const galPostHasPrev = s.galPostIdx > 0;
+    const galPostHasNext = s.galPostIdx < galPostList.length - 1;
 
     // ── responsive layout values ──
     const navPadStyle = isDesktop ? "padding:18px 0;" : "padding:17px 0 15px;";
@@ -1130,6 +1222,7 @@ class Component extends DCLogic {
       galCatName: galActive.name,
       galCountLabel: `${gallerySlots.length}장`,
       gallerySlots,
+      homeGalCards,
       gallerySlotsPage: gallerySlots.slice(0, s.galVisible[s.galCat] || 6),
       showGalMore: gallerySlots.length > (s.galVisible[s.galCat] || 6),
       galRemainingLabel: `${Math.min(6, Math.max(0, gallerySlots.length - (s.galVisible[s.galCat] || 6)))}장`,
@@ -1140,6 +1233,19 @@ class Component extends DCLogic {
         this.setState({
           galCounts: { ...this.state.galCounts, [this.state.galCat]: (this.state.galCounts[this.state.galCat] || 0) + 3 },
         }),
+      showGalPost: s.showGalPost,
+      closeGalPost: () => this.setState({ showGalPost: false }),
+      galPostCatName: galPostCatObj.name,
+      galPostImg: galPostActive ? galPostActive.imgUrl : "",
+      galPostTitle: galPostActive ? (galPostActive.title || `${galPostCatObj.name} 시공 사례`) : "",
+      galPostHasProduct: !!(galPostActive && galPostActive.product),
+      galPostProduct: galPostActive ? galPostActive.product : "",
+      galPostHasBody: !!(galPostActive && galPostActive.content),
+      galPostBody: galPostActive ? galPostActive.content : "",
+      galPostHasPrev,
+      galPostHasNext,
+      galPostPrev: () => this.setState({ galPostIdx: Math.max(0, s.galPostIdx - 1) }),
+      galPostNext: () => this.setState({ galPostIdx: Math.min(galPostList.length - 1, s.galPostIdx + 1) }),
       addWindow: () => this.setState({ windows: [...this.state.windows, { w: "", h: "" }] }),
       onComment: (e) => this.setState({ comment: e.target.value }),
       onContact: (e) => this.setState({ contact: e.target.value }),
