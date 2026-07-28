@@ -91,7 +91,22 @@ collections:
               - { label: "제목", name: "title", widget: "string", required: false }
               - { label: "설치 제품", name: "product", widget: "string", required: false }
               - { label: "요약 (목록에 짧게 보일 설명)", name: "description", widget: "text", required: false }
-              - { label: "본문 (사진 아래 블로그처럼 자세히 쓰는 글)", name: "content", widget: "text", required: false }
+              - { label: "본문 - 간단히 (아래 '본문 - 사진 섞어서'를 안 쓸 때만 사용)", name: "content", widget: "text", required: false }
+              - label: "본문 - 사진 섞어서 (텍스트/사진을 순서대로 추가하면 블로그처럼 됩니다)"
+                name: "body"
+                widget: "list"
+                required: false
+                types:
+                  - label: "텍스트"
+                    name: "text"
+                    widget: "object"
+                    fields:
+                      - { label: "내용", name: "value", widget: "text" }
+                  - label: "사진"
+                    name: "image"
+                    widget: "object"
+                    fields:
+                      - { label: "사진", name: "value", widget: "image" }
   - name: "gallery_apartment_manifest"
     label: "시공 갤러리 - 아파트"
     files:
@@ -107,7 +122,22 @@ collections:
               - { label: "제목", name: "title", widget: "string", required: false }
               - { label: "설치 제품", name: "product", widget: "string", required: false }
               - { label: "요약 (목록에 짧게 보일 설명)", name: "description", widget: "text", required: false }
-              - { label: "본문 (사진 아래 블로그처럼 자세히 쓰는 글)", name: "content", widget: "text", required: false }
+              - { label: "본문 - 간단히 (아래 '본문 - 사진 섞어서'를 안 쓸 때만 사용)", name: "content", widget: "text", required: false }
+              - label: "본문 - 사진 섞어서 (텍스트/사진을 순서대로 추가하면 블로그처럼 됩니다)"
+                name: "body"
+                widget: "list"
+                required: false
+                types:
+                  - label: "텍스트"
+                    name: "text"
+                    widget: "object"
+                    fields:
+                      - { label: "내용", name: "value", widget: "text" }
+                  - label: "사진"
+                    name: "image"
+                    widget: "object"
+                    fields:
+                      - { label: "사진", name: "value", widget: "image" }
   - name: "gallery_countryhouse_manifest"
     label: "시공 갤러리 - 전원주택"
     files:
@@ -123,7 +153,22 @@ collections:
               - { label: "제목", name: "title", widget: "string", required: false }
               - { label: "설치 제품", name: "product", widget: "string", required: false }
               - { label: "요약 (목록에 짧게 보일 설명)", name: "description", widget: "text", required: false }
-              - { label: "본문 (사진 아래 블로그처럼 자세히 쓰는 글)", name: "content", widget: "text", required: false }
+              - { label: "본문 - 간단히 (아래 '본문 - 사진 섞어서'를 안 쓸 때만 사용)", name: "content", widget: "text", required: false }
+              - label: "본문 - 사진 섞어서 (텍스트/사진을 순서대로 추가하면 블로그처럼 됩니다)"
+                name: "body"
+                widget: "list"
+                required: false
+                types:
+                  - label: "텍스트"
+                    name: "text"
+                    widget: "object"
+                    fields:
+                      - { label: "내용", name: "value", widget: "text" }
+                  - label: "사진"
+                    name: "image"
+                    widget: "object"
+                    fields:
+                      - { label: "사진", name: "value", widget: "image" }
   - name: "gallery_cafe_manifest"
     label: "시공 갤러리 - 카페"
     files:
@@ -139,7 +184,22 @@ collections:
               - { label: "제목", name: "title", widget: "string", required: false }
               - { label: "설치 제품", name: "product", widget: "string", required: false }
               - { label: "요약 (목록에 짧게 보일 설명)", name: "description", widget: "text", required: false }
-              - { label: "본문 (사진 아래 블로그처럼 자세히 쓰는 글)", name: "content", widget: "text", required: false }
+              - { label: "본문 - 간단히 (아래 '본문 - 사진 섞어서'를 안 쓸 때만 사용)", name: "content", widget: "text", required: false }
+              - label: "본문 - 사진 섞어서 (텍스트/사진을 순서대로 추가하면 블로그처럼 됩니다)"
+                name: "body"
+                widget: "list"
+                required: false
+                types:
+                  - label: "텍스트"
+                    name: "text"
+                    widget: "object"
+                    fields:
+                      - { label: "내용", name: "value", widget: "text" }
+                  - label: "사진"
+                    name: "image"
+                    widget: "object"
+                    fields:
+                      - { label: "사진", name: "value", widget: "image" }
   - name: "gallery_office_manifest"
     label: "시공 갤러리 - 사무실"
     files:
@@ -155,4 +215,19 @@ collections:
               - { label: "제목", name: "title", widget: "string", required: false }
               - { label: "설치 제품", name: "product", widget: "string", required: false }
               - { label: "요약 (목록에 짧게 보일 설명)", name: "description", widget: "text", required: false }
-              - { label: "본문 (사진 아래 블로그처럼 자세히 쓰는 글)", name: "content", widget: "text", required: false }
+              - { label: "본문 - 간단히 (아래 '본문 - 사진 섞어서'를 안 쓸 때만 사용)", name: "content", widget: "text", required: false }
+              - label: "본문 - 사진 섞어서 (텍스트/사진을 순서대로 추가하면 블로그처럼 됩니다)"
+                name: "body"
+                widget: "list"
+                required: false
+                types:
+                  - label: "텍스트"
+                    name: "text"
+                    widget: "object"
+                    fields:
+                      - { label: "내용", name: "value", widget: "text" }
+                  - label: "사진"
+                    name: "image"
+                    widget: "object"
+                    fields:
+                      - { label: "사진", name: "value", widget: "image" }
