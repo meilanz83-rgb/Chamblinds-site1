@@ -481,7 +481,7 @@
                   <span style="position:absolute;bottom:8px;right:8px;width:38px;height:38px;border-radius:50%;background:rgba(255,255,255,.92);display:flex;align-items:center;justify-content:center;font-size:16px;box-shadow:0 4px 10px rgba(0,36,82,.2);pointer-events:none;">🔍</span>
                 <sc-if value="{{ ph.isManifest }}" hint-placeholder-val="{{ false }}">
                   <sc-if value="{{ ph.imgUrl }}" hint-placeholder-val="{{ false }}">
-                    <img src="{{ ph.imgUrl }}" alt="{{ ph.ph }}" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block;">
+                    <img src="{{ ph.imgUrl }}" alt="{{ ph.ph }}" style="position:absolute;inset:0;width:100%;height:100%;object-fit:contain;display:block;">
                   </sc-if>
                 </sc-if>
                 <sc-if value="{{ ph.notManifest }}" hint-placeholder-val="{{ true }}">
